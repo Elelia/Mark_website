@@ -13,8 +13,14 @@ class Connexion extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h2>Connectez-vous !</h2>
-                                <input type="text" id="mail" name="mail" placeholder="Adresse mail"/><br/>
-                                <input type="text" id="mdp" name="mdp" placeholder="Mot de passe"/><br/>
+                                <div className="input-group mb-3">
+                                    <input type="text" className="form-control" placeholder="Mail" aria-label="Mail"/>
+                                    <span className="input-group-text">@</span>
+                                    <input type="text" className="form-control" placeholder="exemple.com" aria-label="Exemple.com"/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <input type="text" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe"/>
+                                </div>
                                 <button type="button" className="">Connexion</button>
                             </div>
                         </div><br/>
