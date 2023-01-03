@@ -1,19 +1,31 @@
 import React, { Component, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const baseURL = "http://localhost:5000/users";
-
 export default function LoginTest() {
-    const [users, setUser] = useState([]);
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    React.useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setUser(response.data);
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        axios.post('http://localhost:5000/users', {
+            email: email,
+            password: password
+        })
+        .then(function (response) {
+            // handle success
             console.log(response);
-        });
-    }, []);
+            navigate('/profile');
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+    }
 
     return(
         <div className="container">
@@ -24,12 +36,12 @@ export default function LoginTest() {
                     <div className="card">
                         <div className="card-body">
                             <h2>Connectez-vous !</h2>
-                            <form method="post">
+                            <form onSubmit={handleSubmit}>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Email" aria-label="Email"/>
+                                    <input type="text" className="form-control" placeholder="Email" aria-label="Email" value={email} onChange={(event) => setEmail(event.target.value)}/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe"/>
+                                    <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(event) => setPassword(event.target.value)}/>
                                 </div>
                                 <button type="submit" className="">Connexion</button>
                             </form>

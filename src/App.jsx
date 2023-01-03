@@ -1,33 +1,15 @@
 import React from "react";
-import axios from "axios";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Connexion from "./components/connexion/connexion_page";
+import ChoicePage from "./components/choice/choice_page";
 
 function App() {
   return (
-      <Connexion/>
+      <Router>
+        <Route exact path="/" component={Connexion} />
+        <Route path="/profile" component={ChoicePage} />
+      </Router>
   );
 }
 
 export default App;
-
-// const baseURL = "http://localhost:5000/users";
-//
-// export default function App() {
-//   const [post, setPost] = React.useState(null);
-//
-//   React.useEffect(() => {
-//     axios.get(baseURL).then((response) => {
-//       setPost(response.data);
-//       console.log('super ?');
-//     });
-//   }, []);
-//
-//   if (!post) return null;
-//
-//   return (
-//       <div>
-//         <h1>{post.title}</h1>
-//         <p>{post.body}</p>
-//       </div>
-//   );
-// }
