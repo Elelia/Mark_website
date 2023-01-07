@@ -12,12 +12,7 @@ export default function Connexion() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        axios.get('http://192.168.1.73:5000/users/login/', {
-            params: {
-                mail: email,
-                mdp: password,
-            },
-        })
+        axios.get('http://192.168.1.73:5000/users/login/' + email + '/' + password, )
         .then(function (response) {
             // handle success
             console.log(response);
@@ -26,9 +21,6 @@ export default function Connexion() {
         .catch(function (error) {
             // handle error
             console.log(error);
-            console.error(error.response.data);
-            console.error(error.response.status);
-            console.error(error.response.headers);
         })
     }
 
