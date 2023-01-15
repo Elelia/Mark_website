@@ -1,7 +1,18 @@
+body {
+    height: 100vh;
+    background:
+        linear-gradient(45deg,#6CB2D5,transparent),
+        repeating-linear-gradient(45deg,#8B6CD5,transparent 5%);
+}
+
 .maintitle {
     text-align: center;
     font-family: 'Fira Sans', sans-serif;
     font-size: 450%;
+}
+
+.card {
+
 }
 
 .card-body {
