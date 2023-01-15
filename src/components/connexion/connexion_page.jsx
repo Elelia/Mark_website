@@ -4,6 +4,7 @@ import axios from "axios";
 import './connexion_page.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 export default function Connexion() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -16,11 +17,12 @@ export default function Connexion() {
         .then(function (response) {
             // handle success
             console.log(response);
-            navigate('/profile');
+            navigate('/choice');
         })
         .catch(function (error) {
             // handle error
             console.log(error);
+            alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.")
         })
     }
 
@@ -32,6 +34,7 @@ export default function Connexion() {
                     <h1 className="maintitle">Mark</h1>
                     <div className="card">
                         <div className="card-body">
+                            <img src="..." className="card-img-top" alt="..."/>
                             <h2>Connectez-vous !</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="input-group mb-3">
