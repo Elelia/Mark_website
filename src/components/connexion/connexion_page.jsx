@@ -6,14 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Connexion() {
-    const navigate = useNavigate();
+    const  navigate= useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        axios.get('http://192.168.1.73:5000/users/login/' + email + '/' + password, )
+        axios.get('https://mark-api.vercel.app/users/login/' + email + '/' + password, )
         .then(function (response) {
             // handle success
             console.log(response);
@@ -55,6 +55,7 @@ export default function Connexion() {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }
