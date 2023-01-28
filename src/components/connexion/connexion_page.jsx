@@ -13,7 +13,8 @@ export default function Connexion() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        axios.get('https://mark-api.vercel.app/users/login/' + email + '/' + password, )
+        //axios.get('https://mark-api.vercel.app/users/login/' + email + '/' + password, )
+        axios.get('http://192.168.1.73:5000/users/login/' + email + '/' + password, )
         .then(function (response) {
             // handle success
             console.log(response);
