@@ -4,7 +4,6 @@ import axios from "axios";
 import './connexion_page.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 export default function Connexion() {
     const  navigate= useNavigate();
     const [email, setEmail] = useState('');
@@ -56,7 +55,6 @@ export default function Connexion() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
