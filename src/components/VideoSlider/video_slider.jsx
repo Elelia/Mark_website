@@ -6,6 +6,8 @@ import './video_slider.css';
 
 
 export default function VideoSlider(props) {
+    //faire aussi une boucle pour les catégories ?
+    //on a une catégorie lié à un id serie_film
     console.log(props.videos);
 
     const settings = {
@@ -18,7 +20,6 @@ export default function VideoSlider(props) {
 
     return (
         <div>
-            <h2> Première catégorie </h2>
             <Slider {...settings}>
                 {props.videos.map(video => (
                     <div key={video.id}>

@@ -5,25 +5,26 @@ import './connexion_page.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Connexion() {
-    const  navigate= useNavigate();
+    const navigate= useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        //axios.get('https://mark-api.vercel.app/users/login/' + email + '/' + password, )
-        axios.get('http://192.168.1.73:5000/users/login/' + email + '/' + password, )
+        //axios.post('https://mark-api.vercel.app/users/login/', {
+        axios.post('http://192.168.1.73:5000/users/login', {
+            email,
+            password
+        })
         .then(function (response) {
-            // handle success
             console.log(response);
             navigate('/choice');
         })
         .catch(function (error) {
-            // handle error
             console.log(error);
-            alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.")
-        })
+            alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
+        });
     }
 
     return(
@@ -38,10 +39,10 @@ export default function Connexion() {
                             <h2>Connectez-vous !</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Email" aria-label="Email" value={email} onChange={(event) => setEmail(event.target.value)}/>
+                                    <input type="text" className="form-control" placeholder="Email" aria-label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                                    <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
                                 </div>
                                 <button type="submit" className="">Connexion</button>
                             </form>

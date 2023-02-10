@@ -19,6 +19,11 @@ export default function StreamingHome() {
 
 
     return(
+        <div className="container">
+            <h2>Première catégorie</h2>
             <VideoSlider videos={videos}/>
+            <h2>Deuxième catégorie</h2>
+            <VideoSlider videos={videos}/>
+        </div>
     )
 }

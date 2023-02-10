@@ -9,6 +9,9 @@ function NavigationBar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
+                            <Link to="/">Connexion</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/choice">Page de choix</Link>
                         </li>
                         <li className="nav-item">
