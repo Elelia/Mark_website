@@ -117,3 +117,8 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+img {
+    width: 270px;
+    height: 160px;
+}

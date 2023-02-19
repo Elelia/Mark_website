@@ -5,12 +5,25 @@ import VideoSlider from "../VideoSlider/video_slider.jsx";
 import axios from "axios";
 
 export default function StreamingHome() {
+    const [categories, setCategories] = useState([]);
     const [videos, setVideos] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://192.168.1.73:5000/seriefilm/categories', )
+            .then(function (response) {
+                setCategories(response.data);
+                //console.log(categories);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     useEffect(() => {
         axios.get('http://192.168.1.73:5000/seriefilm/', )
             .then(function (response) {
                 setVideos(response.data);
+                //console.log(videos);
             })
             .catch(function (error) {
                 console.log(error);
@@ -20,10 +33,7 @@ export default function StreamingHome() {
 
     return(
         <div className="container">
-            <h2>Première catégorie</h2>
-            <VideoSlider videos={videos}/>
-            <h2>Deuxième catégorie</h2>
-            <VideoSlider videos={videos}/>
+            <VideoSlider videos={videos} categories={categories}/>
         </div>
     )
 }

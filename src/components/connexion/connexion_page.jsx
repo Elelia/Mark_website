@@ -1,8 +1,12 @@
 import React, { Component, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './connexion_page.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Connexion() {
     const navigate= useNavigate();
@@ -58,4 +62,37 @@ export default function Connexion() {
             </div>
         </div>
     )
+    // return (
+    //     <Container>
+    //         <Row>
+    //             {/*<Col xs={4}></Col>*/}
+    //             <Col xs={4}>
+    //                 <h1 className="maintitle">Mark</h1>
+    //                 <Card>
+    //                     <Card.Img variant="top" src="holder.js/100px180" />
+    //                     <Card.Body>
+    //                         <Card.Title>Connectez-vous !</Card.Title>
+    //                         <form onSubmit={handleSubmit}>
+    //                             <Card.Text>
+    //                                 <div className="input-group mb-3">
+    //                                     <input type="text" className="form-control" placeholder="Email" aria-label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+    //                                 </div>
+    //                                 <div className="input-group mb-3">
+    //                                     <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
+    //                                 </div>
+    //                             </Card.Text>
+    //                             <Button type="submit" variant="primary">Connexion</Button>
+    //                         </form>
+    //                     </Card.Body>
+    //                 </Card>
+    //                 <Card>
+    //                     <Card.Body>
+    //                         <Card.Title>Pas encore inscrit ?</Card.Title>
+    //                         <Button variant="primary">Inscrivez-vous</Button>
+    //                     </Card.Body>
+    //                 </Card>
+    //             </Col>
+    //         </Row>
+    //     </Container>
+    // );
 }
