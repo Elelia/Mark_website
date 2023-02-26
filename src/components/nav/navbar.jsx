@@ -18,6 +18,8 @@ function NavigationBar() {
                         <Nav.Link as={Link} to="/ticket"><BsCameraReelsFill/> Billetterie</Nav.Link>
                         <Nav.Link as={Link} to=""><BsFillEnvelopeFill/> Contact</Nav.Link>
                         <Nav.Link as={Link} to="">Déconnexion</Nav.Link>
+                        <Nav.Link as={Link} to="">Profil</Nav.Link>
+                        <Nav.Link as={Link} to="">Administration</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

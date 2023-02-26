@@ -1,34 +1,46 @@
 import React, { Component, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './connexion_page.css';
 
 export default function Connexion() {
     const navigate= useNavigate();
+    const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
+                email,
+                password
+            });
+            console.log(res.data.user[0]);
+            setUser(res.data.user[0]);
+            console.log(user);
+            if(user != null) {
+                navigate('/choice');
+            } else {
+                alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
+            }
+        } catch (err) {
+            console.log(err);
+        }
 
-        axios.post('https://mark-api.vercel.app/users/login/', {
-        //axios.post('http://192.168.1.73:5000/users/login', {
-            email,
-            password
-        })
-        .then(function (response) {
-            console.log(response);
-            navigate('/choice');
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
-        });
+        //axios.post('https://mark-api.vercel.app/users/auth/login/', {
+        // axios.post('http://192.168.1.73:5000/users/auth/login', {
+        //     email,
+        //     password
+        // })
+        // .then(function (response) {
+        //     console.log(response);
+        //     navigate('/choice');
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        //     alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
+        // });
     }
 
     return(
