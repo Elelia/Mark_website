@@ -5,6 +5,7 @@ import ChoicePage from "./components/choice/choice_page";
 import StreamingHome from "./components/streaming/streaming_home_page";
 import TicketHome from "./components/ticket/ticket_home_page";
 import Navbar from "./components/nav/navbar";
+import Contact from "./components/contact/contact";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </Routes>
           <Routes>
               <Route path="/ticket" element={<TicketHome/>} />
+          </Routes>
+          <Routes>
+              <Route path="/contact" element={<Contact/>} />
           </Routes>
       </BrowserRouter>
   );
