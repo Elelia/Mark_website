@@ -9,6 +9,7 @@ export default function Connexion() {
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState(null);
 
     // pour cacher la navbar
     useEffect(() => {
@@ -33,24 +34,12 @@ export default function Connexion() {
                 password
             });
             setUser(res.data.user[0]);
+            setToken(res.data.token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
         } catch (err) {
             console.log(err);
             alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
         }
-
-        //axios.post('https://mark-api.vercel.app/users/auth/login/', {
-        // axios.post('http://192.168.1.73:5000/users/auth/login', {
-        //     email,
-        //     password
-        // })
-        // .then(function (response) {
-        //     console.log(response);
-        //     navigate('/choice');
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        //     alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
-        // });
     }
 
     return(
