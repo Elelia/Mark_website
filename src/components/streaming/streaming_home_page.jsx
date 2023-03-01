@@ -9,8 +9,8 @@ export default function StreamingHome() {
     const [videos, setVideos] = useState([]);
 
     useEffect(() => {
-        //axios.get('https://mark-api.vercel.app/seriefilm/categories', )
-        axios.get('http://192.168.1.73:5000/seriefilm/categories', )
+        axios.get('https://mark-api.vercel.app/seriefilm/categories', )
+        //axios.get('http://192.168.1.73:5000/seriefilm/categories', )
             .then(function (response) {
                 setCategories(response.data);
                 //console.log(categories);
@@ -21,8 +21,8 @@ export default function StreamingHome() {
     }, []);
 
     useEffect(() => {
-        //axios.get('https://mark-api.vercel.app/seriefilm/', )
-        axios.get('http://192.168.1.73:5000/seriefilm/', )
+        axios.get('https://mark-api.vercel.app/seriefilm/', )
+        //axios.get('http://192.168.1.73:5000/seriefilm/', )
             .then(function (response) {
                 setVideos(response.data);
                 //console.log(videos);
