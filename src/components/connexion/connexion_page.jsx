@@ -5,7 +5,7 @@ import './connexion_page.css';
 import Button from 'react-bootstrap/Button';
 
 export default function Connexion() {
-    const navigate= useNavigate();
+    const navigate=useNavigate();
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,6 +32,8 @@ export default function Connexion() {
             const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
+            }, {
+                withCredentials: true
             });
             setUser(res.data.user[0]);
             setToken(res.data.token);
