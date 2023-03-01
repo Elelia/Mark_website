@@ -13,16 +13,14 @@ function NavigationBar() {
         <>
             <Navbar id="navbar" sticky="top" bg="dark" variant="dark">
                 <Container>
-                    {/*<Navbar.Brand href="#home">Navbar</Navbar.Brand>*/}
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         {/*<Nav.Link as={Link} to="/choice">Page de choix</Nav.Link>*/}
                         <Nav.Link as={Link} to="/streaming"><BsYoutube/> Streaming</Nav.Link>
-                        <Nav.Link as={Link} to="/ticket"><BsCameraReelsFill/> Billetterie</Nav.Link>
                         <Nav.Link as={Link} to="/contact"><BsFillEnvelopeFill/> Contact</Nav.Link>
-                        <Nav.Link as={Link} to="">Déconnexion</Nav.Link>
                         <Nav.Link as={Link} to="">Profil</Nav.Link>
                         <Nav.Link as={Link} to="">Administration</Nav.Link>
+                        <Nav.Link as={Link} to="">Déconnexion</Nav.Link>
                     </Nav>
                     {location.pathname === '/streaming' && (
                         <Form className="d-flex">
