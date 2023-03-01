@@ -35,6 +35,7 @@ export default function Connexion() {
             });
             setUser(res.data.user[0]);
             setToken(res.data.token);
+            console.log(res.data.token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
         } catch (err) {
             console.log(err);
