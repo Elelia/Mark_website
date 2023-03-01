@@ -48,8 +48,8 @@ export default function Connexion() {
     return(
         <div className="container">
             <div className="row">
-                <div className="col-md-4"></div>
-                <div className="col-md-4">
+                <div className="col-sm-4"></div>
+                <div className="col-sm-4">
                     <h1 className="maintitle">Mark</h1>
                     <div className="card">
                         <div className="card-body">
