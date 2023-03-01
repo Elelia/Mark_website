@@ -31,8 +31,6 @@ export default function Connexion() {
             const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
-            }, {
-                withCredentials: true
             });
             setUser(res.data.user[0]);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
