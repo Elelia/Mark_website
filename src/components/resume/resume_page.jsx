@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 
@@ -21,7 +23,16 @@ export default function ResumePage({isOpen, closeModal, video}) {
                         <span onClick={() => setVideoModalIsOpen(true)}><BsFillPlayCircleFill size={32}/></span>
                     </div>
                     <div className="col-4">
-                        <p>Là ce serait les avis</p>
+                        <p>Liste des avis</p>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                <Form.Label>Example textarea</Form.Label>
+                                <Form.Control as="textarea" rows={3} />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Valider votre avis
+                            </Button>
+                        </Form>
                     </div>
                 </div>
             </div>

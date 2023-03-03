@@ -1,11 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext   } from 'react';
+import {UserContext} from "../userContext";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
 import Button from 'react-bootstrap/Button';
 
 export default function Connexion() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+    const { login } = useContext(UserContext);
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,19 +23,20 @@ export default function Connexion() {
     useEffect(() => {
         if (user !== null) {
             navigate('/streaming');
-            console.log(user);
         }
     }, [user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
+            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
             });
             setUser(res.data.user[0]);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+            login(res.data.user[0].id);
         } catch (err) {
             console.log(err);
             alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
@@ -48,7 +51,6 @@ export default function Connexion() {
                     <h1 className="maintitle">Mark</h1>
                     <div className="card">
                         <div className="card-body">
-                            {/*<img src="..." className="card-img-top" alt="..."/>*/}
                             <h2 className="title">Connectez-vous !</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="input-group mb-3">
