@@ -13,13 +13,28 @@ export default function ResumePage({isOpen, closeModal, video}) {
             isOpen={isOpen}
             onRequestClose={closeModal}
             contentLabel="Video Modal"
+            style={{
+                overlay: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                },
+                content: {
+                    top: '50%',
+                    left: '50%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    transform: 'translate(-50%, -50%)',
+                    maxWidth: '80%',
+                    maxHeight: '90%',
+                },
+            }}
         >
             <div className="container">
                 <div className="row">
                     <div className="col-8">
                         <h2>{video.nom}</h2>
                         <p>{video.resume}</p>
-                        <p>{video.annee}</p>
+                        <p>{video.date_sortie}</p>
                         <span onClick={() => setVideoModalIsOpen(true)}><BsFillPlayCircleFill size={32}/></span>
                     </div>
                     <div className="col-4">

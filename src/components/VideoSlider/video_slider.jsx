@@ -26,7 +26,7 @@ export default function VideoSlider(props) {
         infinite: true,
         speed: 500,
         slidesToShow: 4,
-        //slidesToScroll: 3
+        slidesToScroll: 4,
 
         responsive: [{
             breakpoint: 600,
@@ -49,7 +49,7 @@ export default function VideoSlider(props) {
                             {categorieSerieFilm.map(video => (
                                 <div key={video.id} onClick={() => openModal(video)}>
                                     <h3 class="movieTitle">{video.nom}</h3>
-                                    <img src={video.url}/>
+                                    <img src={video.url_vignette}/>
                                 </div>
                             ))}
                         </Slider>
@@ -61,6 +61,7 @@ export default function VideoSlider(props) {
                                 video={selectedVideo}
                             />
                         )}
+                        <br/>
                     </div>
                 );
             })}
