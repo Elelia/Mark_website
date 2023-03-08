@@ -11,7 +11,6 @@ export default function VideoSlider(props) {
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const openModal = (video) => {
-        console.log(video);
         setSelectedVideo(video);
         setModalIsOpen(true);
     };

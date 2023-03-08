@@ -25,7 +25,6 @@ export default function StreamingHome() {
         axios.get('http://192.168.1.73:5000/seriefilm/', )
             .then(function (response) {
                 setVideos(response.data);
-                //console.log(videos);
             })
             .catch(function (error) {
                 console.log(error);

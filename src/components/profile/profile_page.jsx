@@ -18,7 +18,7 @@ export default function Profile() {
     useEffect(()  => {
         try {
             const res = axios.get('http://192.168.1.73:5000/users/', {
-                //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
 
             });
         } catch (err) {
