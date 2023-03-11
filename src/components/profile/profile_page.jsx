@@ -4,28 +4,43 @@ import axios from "axios";
 import './profile_page.css';
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 export default function Profile() {
     const user = useContext(UserContext);
     const [thisUser, setThisUser] = useState('');
     const [hide, setHide] = useState(false);
-    console.log(user);
+    const [show, setShow] = useState(false);
+    const id = user.user;
 
     const toggleHide = () => {
         setHide(!hide);
     };
 
+    const handleModal = () => {
+        setShow(true);
+    };
+
+    const handleCloseModal = () => {
+        setShow(false);
+    };
+
     useEffect(()  => {
         try {
-            const res = axios.get('http://192.168.1.73:5000/users/', {
-            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
-
-            });
+            const res = axios.get(`http://192.168.1.73:5000/users/user/${id}`)
+                .then(function (response) {
+                    setThisUser(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         } catch (err) {
             console.log(err);
             alert("Non.");
         }
     }, [thisUser]);
+
+    console.log(thisUser);
 
     return(
         <div className="container">
@@ -35,40 +50,51 @@ export default function Profile() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Votre profil</h2>
-                            <form>
+                            <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Votre adresse mail</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
+                                    <Form.Control type="email" placeholder="Enter email" value={thisUser[0].mail} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Votre nom</Form.Label>
-                                    <Form.Control type="" placeholder="Enter email" />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
+                                    <Form.Control type="" placeholder="Enter email" value={thisUser[0].nom} />
                                 </Form.Group>
-                                <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="" aria-label="email" value="" onChange=""/>
-                                </div>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Votre prénom</Form.Label>
+                                    <Form.Control type="" placeholder="Enter email" value={thisUser[0].prenom} />
+                                </Form.Group>
                                 <Button onClick={toggleHide}>Changer votre mot de passe</Button>
                                 <br/>
                                 <div className="divPassword" style={{ display: hide ? "block" : "none" }}>
-                                    <div className="input-group mb-3">
-                                        <input type="password" className="form-control" placeholder="" aria-label="oldpassword" value="" onChange=""/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <input type="password" className="form-control" placeholder="" aria-label="newpassword" value="" onChange=""/>
-                                    </div>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Votre ancien mot de passe</Form.Label>
+                                        <Form.Control type="password" placeholder="Ancien mot de passe" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Votre nouveau mot de passe</Form.Label>
+                                        <Form.Control type="password" placeholder="Nouveau mot de passe" />
+                                    </Form.Group>
                                 </div>
-                                <Button type="submit" className="">Valider les changements</Button>
-                            </form>
+                                <Button type="submit" onClick={handleModal}>Valider les changements</Button>
+                            </Form>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal show={show} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

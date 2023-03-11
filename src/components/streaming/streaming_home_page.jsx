@@ -3,6 +3,9 @@ import './streaming_home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VideoSlider from "../VideoSlider/video_slider.jsx";
 import axios from "axios";
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 export default function StreamingHome() {
     const [categories, setCategories] = useState([]);
