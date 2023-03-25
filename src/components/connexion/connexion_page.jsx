@@ -29,14 +29,14 @@ export default function Connexion() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
-            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            //const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
+            const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
             });
             setUser(res.data.user[0]);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-            login(res.data.user[0].id);
+            login(res.data.user[0].id, res.data.user[0].admin);
         } catch (err) {
             console.log(err);
             alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");

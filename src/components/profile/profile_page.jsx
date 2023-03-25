@@ -11,7 +11,8 @@ export default function Profile() {
     const [thisUser, setThisUser] = useState('');
     const [hide, setHide] = useState(false);
     const [show, setShow] = useState(false);
-    const id = user.user;
+    const id = user.user.userId;
+    console.log(user.user.isAdmin);
 
     const toggleHide = () => {
         setHide(!hide);
@@ -53,15 +54,15 @@ export default function Profile() {
                             <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Votre adresse mail</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" value={thisUser[0].mail} />
+                                    <Form.Control type="email" placeholder="Enter email" value="" />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Votre nom</Form.Label>
-                                    <Form.Control type="" placeholder="Enter email" value={thisUser[0].nom} />
+                                    <Form.Control type="" placeholder="Enter email" value="" />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Votre prénom</Form.Label>
-                                    <Form.Control type="" placeholder="Enter email" value={thisUser[0].prenom} />
+                                    <Form.Control type="" placeholder="Enter email" value="" />
                                 </Form.Group>
                                 <Button onClick={toggleHide}>Changer votre mot de passe</Button>
                                 <br/>

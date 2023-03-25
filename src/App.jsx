@@ -5,6 +5,7 @@ import StreamingHome from "./components/streaming/streaming_home_page";
 import Navbar from "./components/nav/navbar";
 import Contact from "./components/contact/contact";
 import Profile from "./components/profile/profile_page";
+import Deconnexion from "./components/deconnexion/deconnexion";
 import {UserProvider} from "./components/userContext";
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
                   </Routes>
                   <Routes>
                       <Route path="/profile" element={<Profile/>} />
+                  </Routes>
+                  <Routes>
+                      <Route path="/deconnexion" element={<Deconnexion/>} />
                   </Routes>
               </BrowserRouter>
           </UserProvider>
