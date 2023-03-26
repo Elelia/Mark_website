@@ -22,6 +22,8 @@ export default function Connexion() {
         }
     }, []);
 
+    //si user est définit, donc si la connexion s'est bien passée
+    //on redirige vers la page de streaming
     useEffect(() => {
         if (user !== null) {
             navigate('/streaming');
@@ -63,6 +65,10 @@ export default function Connexion() {
         }
     }
 
+    const signIn = () => {
+
+    };
+
     const loginGoogle = useGoogleLogin({
         onSuccess: tokenResponse => setUserGoogle(tokenResponse),
         onError: errorResponse => console.log(errorResponse),
@@ -93,7 +99,7 @@ export default function Connexion() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Pas encore inscrit ?</h2>
-                            <Button type="button" className="">Inscription</Button><br/>
+                            <Button type="button" onClick={() => signIn()}>Inscription</Button><br/>
                         </div>
                     </div>
                 </div>
