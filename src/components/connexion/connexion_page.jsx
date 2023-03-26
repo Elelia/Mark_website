@@ -38,6 +38,9 @@ export default function Connexion() {
             })
             .then((res) => {
                 console.log(res.data);
+                //faire une requête sur l'api pour regarder si le mail est déjà présent en base
+                //s'il ne l'est pas, il faut faire un insert, avec le nom et prénom
+                //pas besoin du mot de passe vu qu'on utilise l'auth google
             })
             .catch((err) => console.log(err));
         }
@@ -83,6 +86,7 @@ export default function Connexion() {
                                 </div>
                                 <Button type="submit" className="">Connexion</Button>
                             </form>
+                            <br/>
                             <Button onClick={() => loginGoogle()}>Sign in with Google 🚀 </Button>
                         </div>
                     </div><br/>
