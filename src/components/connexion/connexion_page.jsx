@@ -28,6 +28,21 @@ export default function Connexion() {
         }
     }, [user]);
 
+    useEffect(() => {
+        if (userGoogle) {
+            axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
+                headers: {
+                    Authorization: `Bearer ${userGoogle.access_token}`,
+                    Accept: 'application/json'
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => console.log(err));
+        }
+    }, [userGoogle]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -46,7 +61,8 @@ export default function Connexion() {
     }
 
     const loginGoogle = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
+        onSuccess: tokenResponse => setUserGoogle(tokenResponse),
+        onError: errorResponse => console.log(errorResponse),
     });
 
     return(
