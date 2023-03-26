@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
 import Button from 'react-bootstrap/Button';
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function Connexion() {
     const navigate = useNavigate();
     const { login } = useContext(UserContext);
+    const [userGoogle, setUserGoogle] = useState(null);
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,8 +31,8 @@ export default function Connexion() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
-            const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
+            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
             });
@@ -61,13 +63,20 @@ export default function Connexion() {
                                 </div>
                                 <Button type="submit" className="">Connexion</Button>
                             </form>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    console.log(credentialResponse);
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
+                            />
                         </div>
                     </div><br/>
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Pas encore inscrit ?</h2>
                             <Button type="button" className="">Inscription</Button><br/>
-                            <Button type="button" className="button">Google soon</Button>
                         </div>
                     </div>
                 </div>
