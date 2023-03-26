@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
 import Button from 'react-bootstrap/Button';
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function Connexion() {
     const navigate = useNavigate();
@@ -45,6 +45,10 @@ export default function Connexion() {
         }
     }
 
+    const loginGoogle = useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+    });
+
     return(
         <div className="container">
             <div className="row">
@@ -63,14 +67,7 @@ export default function Connexion() {
                                 </div>
                                 <Button type="submit" className="">Connexion</Button>
                             </form>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    console.log(credentialResponse);
-                                }}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            />
+                            <Button onClick={() => loginGoogle()}>Sign in with Google 🚀 </Button>
                         </div>
                     </div><br/>
                     <div className="card">
