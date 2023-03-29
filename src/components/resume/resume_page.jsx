@@ -18,13 +18,13 @@ export default function ResumePage({isOpen, closeModal, video}) {
     useEffect(() => {
         axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
-                console.log(response.data);
+                console.log("bep");
                 setAvis(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, [user]);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
             alert("Votre avis a bien été publié");
             await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
                 .then(function (response) {
-                    console.log(response.data);
+                    console.log("bopbop");
                     setAvis(response.data);
                 })
                 .catch(function (error) {
