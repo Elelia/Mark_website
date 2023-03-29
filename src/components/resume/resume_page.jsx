@@ -22,6 +22,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const getAvis = async () => {
         await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
+                console.log("bop");
                 setAvis(response.data);
             })
             .catch(function (error) {

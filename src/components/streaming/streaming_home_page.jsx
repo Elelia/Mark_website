@@ -11,28 +11,53 @@ export default function StreamingHome() {
     const [categories, setCategories] = useState([]);
     const [videos, setVideos] = useState([]);
 
-    useEffect(() => {
-        axios.get('https://mark-api.vercel.app/seriefilm/categories', )
-        //axios.get('http://192.168.1.73:5000/seriefilm/categories', )
+    // useEffect(() => {
+    //     axios.get('https://mark-api.vercel.app/seriefilm/categories', )
+    //     //axios.get('http://192.168.1.73:5000/seriefilm/categories', )
+    //         .then(function (response) {
+    //             setCategories(response.data);
+    //             //console.log(categories);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
+    //
+    // useEffect(() => {
+    //     axios.get('https://mark-api.vercel.app/seriefilm/', )
+    //     //axios.get('http://192.168.1.73:5000/seriefilm/', )
+    //         .then(function (response) {
+    //             setVideos(response.data);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
+
+    const getCateg = async () => {
+        await axios.get('https://mark-api.vercel.app/seriefilm/categories', )
+            //axios.get('http://192.168.1.73:5000/seriefilm/categories', )
             .then(function (response) {
                 setCategories(response.data);
-                //console.log(categories);
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
+    }
 
-    useEffect(() => {
-        axios.get('https://mark-api.vercel.app/seriefilm/', )
-        //axios.get('http://192.168.1.73:5000/seriefilm/', )
+    const getFilm = async () => {
+        await axios.get('https://mark-api.vercel.app/seriefilm/', )
+            //axios.get('http://192.168.1.73:5000/seriefilm/', )
             .then(function (response) {
                 setVideos(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
+    }
+
+    getCateg();
+    getFilm();
 
 
     return(
