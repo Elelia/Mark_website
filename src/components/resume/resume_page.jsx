@@ -14,8 +14,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [comment, setComment] = useState('');
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
-
-
+    
     axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
                 console.log(response.data);
@@ -36,8 +35,10 @@ export default function ResumePage({isOpen, closeModal, video}) {
                 comment,
                 note,
                 date
-            });
-            //mettre le then
+            })
+                .then(function (response) {
+                    setAvis(response.data);
+                })
             alert("Votre avis a bien été publié");
         } catch (err) {
             console.log(err);
