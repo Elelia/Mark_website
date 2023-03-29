@@ -15,13 +15,11 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
 
-    useEffect(() => {
-        getAvis();
-    }, []);
+    getAvis();
 
-    useEffect(() => {
-        console.log(avis);  // Move the console log here
-    }, [avis]);
+    // useEffect(() => {
+    //     console.log(avis);
+    // }, [avis]);
 
     const getAvis = async () => {
         await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
