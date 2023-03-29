@@ -16,6 +16,14 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const seriefilmId = video.id;
 
     useEffect(() => {
+        getAvis();
+    }, []);
+
+    useEffect(() => {
+        console.log(avis);  // Move the console log here
+    }, [avis]);
+
+    const getAvis = async () => {
         axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
                 console.log("bep");
@@ -24,7 +32,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
