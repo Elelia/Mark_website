@@ -25,9 +25,9 @@ export default function ResumePage({isOpen, closeModal, video}) {
             .catch(function (error) {
                 console.log(error);
             });
-    }, [avis]);
+    }, []);
 
-    console.log(avis);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
