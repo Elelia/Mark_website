@@ -15,8 +15,6 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
 
-    getAvis();
-
     // useEffect(() => {
     //     console.log(avis);
     // }, [avis]);
@@ -50,6 +48,8 @@ export default function ResumePage({isOpen, closeModal, video}) {
         }
         getAvis();
     }
+
+    getAvis();
 
     return (
         <Modal
