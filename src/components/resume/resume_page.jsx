@@ -15,9 +15,8 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
 
-    useEffect(() => {
-        console.log('hook');
-        axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+
+    axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
                 console.log(response.data);
                 setAvis(response.data);
@@ -25,9 +24,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
-
-
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,11 +38,13 @@ export default function ResumePage({isOpen, closeModal, video}) {
                 note,
                 date
             });
+            //mettre le then
             alert("Votre avis a bien été publié");
         } catch (err) {
             console.log(err);
             alert("Un problème est survenu. Veuillez réessayer ultérieurement.");
         }
+
     }
 
     return (
