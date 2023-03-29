@@ -17,7 +17,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
 
     useEffect(() => {
         console.log('hook');
-        axios.get(`http:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
                 console.log(response.data);
                 setAvis(response.data);
@@ -34,7 +34,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
         const userId = user.user.userId;
         const date = new Date().toLocaleString();
         try {
-            await axios.put('http:///mark-api.vercel.app/seriefilm/avis/insert', {
+            await axios.put('https:///mark-api.vercel.app/seriefilm/avis/insert', {
                 userId,
                 seriefilmId,
                 comment,
