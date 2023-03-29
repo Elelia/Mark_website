@@ -19,6 +19,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
         console.log('hook');
         axios.get(`http:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
             .then(function (response) {
+                console.log(response.data);
                 setAvis(response.data);
             })
             .catch(function (error) {
