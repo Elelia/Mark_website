@@ -24,7 +24,7 @@ function NavigationBar() {
                         <Nav.Link as={Link} to="/contact"><BsFillEnvelopeFill/> Contact</Nav.Link>
                         <Nav.Link as={Link} to="/profile">Profil</Nav.Link>
                         {admin === true && (
-                            <Nav.Link as={Link} to="">Administration</Nav.Link>
+                            <Nav.Link as={Link} to="/administration">Administration</Nav.Link>
                         )}
                         <Nav.Link as={Link} to="/deconnexion">Déconnexion</Nav.Link>
                     </Nav>

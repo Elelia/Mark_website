@@ -12,7 +12,6 @@ export default function Profile() {
     const [hide, setHide] = useState(false);
     const [show, setShow] = useState(false);
     const id = user.user.userId;
-    console.log(user.user.isAdmin);
 
     const toggleHide = () => {
         setHide(!hide);
@@ -27,19 +26,17 @@ export default function Profile() {
     };
 
     useEffect(()  => {
-        try {
-            const res = axios.get(`http://192.168.1.73:5000/users/user/${id}`)
-                .then(function (response) {
-                    setThisUser(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        } catch (err) {
-            console.log(err);
-            alert("Non.");
+        const getInfoUser = async () => {
+            try {
+                const res = await axios.get(`http://192.168.1.73:5000/users/user/${id}`);
+                setThisUser(res.data);
+            } catch (err) {
+                console.log(err);
+                alert("Non.");
+            }
         }
-    }, [thisUser]);
+        getInfoUser();
+    }, []);
 
     console.log(thisUser);
 

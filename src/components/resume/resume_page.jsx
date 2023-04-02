@@ -15,14 +15,12 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
 
-    // useEffect(() => {
-    //     console.log(avis);
-    // }, [avis]);
+    console.log("bop");
 
     const getAvis = async () => {
-        await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`http://192.168.1.73:5000/seriefilm/avis/${seriefilmId}`)
             .then(function (response) {
-                console.log("bop");
                 setAvis(response.data);
             })
             .catch(function (error) {
@@ -30,12 +28,17 @@ export default function ResumePage({isOpen, closeModal, video}) {
             });
     }
 
+    useEffect(() => {
+        getAvis();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userId = user.user.userId;
         const date = new Date().toLocaleString();
         try {
-            await axios.put('https:///mark-api.vercel.app/seriefilm/avis/insert', {
+            //await axios.put('https:///mark-api.vercel.app/seriefilm/avis/insert', {
+            await axios.put('http://192.168.1.73:5000/seriefilm/avis/insert', {
                 userId,
                 seriefilmId,
                 comment,
@@ -49,8 +52,6 @@ export default function ResumePage({isOpen, closeModal, video}) {
         }
         getAvis();
     }
-
-    getAvis();
 
     return (
         <Modal
