@@ -31,23 +31,56 @@ export default function Connexion() {
     }, [user]);
 
     useEffect(() => {
-        if (userGoogle) {
-            axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
-                headers: {
-                    Authorization: `Bearer ${userGoogle.access_token}`,
-                    Accept: 'application/json'
+        const fetchGoogleUser = async () => {
+            if (userGoogle) {
+                let mail = "";
+                let nom = "";
+                let prenom = "";
+                let admin = false;
+                let mdp = "";
+
+                try {
+                    await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${userGoogle.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                        .then((res) => {
+                            mail = res.data.email;
+                            nom = res.data.family_name;
+                            prenom = res.data.given_name;
+                        })
+                        .catch((err) => console.log(err));
+
+                    const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${mail}`);
+                    if (userByMail.data.message === "no user with this mail") {
+                        //là on insert le user dans la base de données
+                        console.log(nom);
+                        await axios.put(`http://192.168.1.73:5000/users/create`, {
+                            nom,
+                            prenom,
+                            mail,
+                            admin,
+                            mdp
+                        });
+                    } else {
+                        setUser(userByMail.data.user[0]);
+                        login(userByMail.data.user[0].id, userByMail.data.user[0].admin);
+                    }
+
+                    navigate('/streaming');
+                } catch(err) {
+                    console.log(err);
+                    alert("Une erreur est survenue, veuillez recommencer.");
                 }
-            })
-            .then((res) => {
-                console.log(res.data);
-                //faire une requête sur l'api pour regarder si le mail est déjà présent en base
-                //s'il ne l'est pas, il faut faire un insert, avec le nom et prénom
-                //pas besoin du mot de passe vu qu'on utilise l'auth google
-            })
-            .catch((err) => console.log(err));
+            }
         }
+
+        fetchGoogleUser();
     }, [userGoogle]);
 
+    //connexion
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -93,7 +126,7 @@ export default function Connexion() {
                                 <Button type="submit" className="">Connexion</Button>
                             </form>
                             <br/>
-                            <Button onClick={() => loginGoogle()}>Sign in with Google 🚀 </Button>
+                            <Button onClick={() => loginGoogle()}>Connectez-vous avec Google </Button>
                         </div>
                     </div><br/>
                     <div className="card">
@@ -104,15 +137,6 @@ export default function Connexion() {
                     </div>
                 </div>
             </div>
-            {/*{user != null ?*/}
-            {/*    <div className="row">*/}
-            {/*        <span>Vie nulle <b>{user.admin ? "admin" : "user"}</b> Bip</span>*/}
-            {/*    </div>*/}
-            {/*    :*/}
-            {/*    <div className="row">*/}
-            {/*        <span>Loupé</span>*/}
-            {/*    </div>*/}
-            {/*}*/}
         </div>
     )
 }

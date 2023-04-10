@@ -10,12 +10,12 @@ import axios from "axios";
 export default function ResumePage({isOpen, closeModal, video}) {
     const user = useContext(UserContext);
     const [avis, setAvis] = useState([]);
+    const [url, setUrl] = useState(null);
     const [videoModalIsOpen, setVideoModalIsOpen] = useState(false);
     const [comment, setComment] = useState('');
     const [note, setNote] = useState('');
     const seriefilmId = video.id;
-
-    console.log("bop");
+    const videoId = video.id_video;
 
     const getAvis = async () => {
         //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
@@ -28,8 +28,20 @@ export default function ResumePage({isOpen, closeModal, video}) {
             });
     }
 
+    const getUrlVideo = async () => {
+        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`http://192.168.1.73:5000/seriefilm/video/url/${videoId}`)
+            .then(function (response) {
+                setUrl(response.data[0].url);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     useEffect(() => {
         getAvis();
+        getUrlVideo();
     }, []);
 
     const handleSubmit = async (e) => {
@@ -157,8 +169,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
                     },
                 }}
             >
-                {/*changer la requête pour récupérer l'url de video*/}
-                <ReactPlayer url="https://www.youtube.com/watch?v=mqqft2x_Aa4" playing={videoModalIsOpen} />
+                {url && <ReactPlayer url={url} playing={videoModalIsOpen}/> }
             </Modal>
         </Modal>
     );

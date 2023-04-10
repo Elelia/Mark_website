@@ -19,12 +19,17 @@ export default function Administration() {
     return(
         <div className="container">
             <div className="row">
-                <div className="col-4"></div>
-                <div className="col-4">
+                <div className="col-3"></div>
+                <div className="col-3">
                     <div className="card">
                         <div className="card-body">
                             <Button onClick={() => modify()}>Modifier un film ou une série</Button>
-                            <br/>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-3">
+                    <div className="card">
+                        <div className="card-body">
                             <Button onClick={() => add()}>Ajouter un film ou une série</Button>
                         </div>
                     </div>

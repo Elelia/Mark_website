@@ -8,53 +8,46 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 export default function StreamingHome() {
-    const [categories, setCategories] = useState([]);
-    const [videos, setVideos] = useState([]);
+    const [categoriesFilm, setCategoriesFilm] = useState([]);
+    const [videosFilm, setVideosFilm] = useState([]);
+    const [categoriesSerie, setCategoriesSerie] = useState([]);
+    const [videosSerie, setVideosSerie] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDataFilm = async () => {
             try {
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/categories');
-                setCategories(categoriesResponse.data);
+                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                setCategoriesFilm(categoriesResponse.data);
 
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/');
-                setVideos(videosResponse.data);
+                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film');
+                setVideosFilm(videosResponse.data);
             } catch (error) {
                 console.log(error);
             }
         };
 
-        fetchData();
+        const fetchDataSerie = async () => {
+            try {
+                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                setCategoriesSerie(categoriesResponse.data);
+
+                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie');
+                setVideosSerie(videosResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchDataFilm();
+        fetchDataSerie();
     }, []);
-
-    /*const getCateg = async () => {
-        //await axios.get('https://mark-api.vercel.app/seriefilm/categories', )
-        await axios.get('http://192.168.1.73:5000/seriefilm/categories', )
-            .then(function (response) {
-                setCategories(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    const getFilm = async () => {
-        //await axios.get('https://mark-api.vercel.app/seriefilm/', )
-        await axios.get('http://192.168.1.73:5000/seriefilm/', )
-            .then(function (response) {
-                setVideos(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    getCateg();
-    getFilm();*/
 
     return(
         <div className="container">
-            <VideoSlider videos={videos} categories={categories}/>
+            <h1>Les films</h1>
+            <VideoSlider videos={videosFilm} categories={categoriesFilm}/>
+            <h1>Les séries</h1>
+            <VideoSlider videos={videosSerie} categories={categoriesSerie}/>
         </div>
     )
 }

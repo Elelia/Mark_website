@@ -15,7 +15,6 @@ export default function Deconnexion() {
                 // Remove the JWT cookie from the client-side
                 document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 logout();
-                console.log("ok deco");
             } catch (err) {
                 console.log(err);
                 alert("Déconnexion impossible. Veuillez réessayer ultérieurement.");
@@ -25,7 +24,6 @@ export default function Deconnexion() {
     }, []);
 
     useEffect(() => {
-        console.log("ok switch page");
         console.log(user);
         if (user.user.userId === '' && user.user.isAdmin === '') {
             navigate('/');

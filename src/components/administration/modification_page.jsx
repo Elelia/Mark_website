@@ -11,7 +11,7 @@ export default function Administration() {
     const [films, setFilms] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.1.73:5000/seriefilm/')
+        axios.get('http://192.168.1.73:5000/seriefilm/film')
             .then(response => {
                 setFilms(response.data);
             })

@@ -32,13 +32,11 @@ export default function Profile() {
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
-                alert("Non.");
+                alert("Erreur au chargement de vos données");
             }
         }
         getInfoUser();
     }, []);
-
-    console.log(thisUser);
 
     return(
         <div className="container">
@@ -93,6 +91,17 @@ export default function Profile() {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <div className="row">
+                <div className="col-4"></div>
+                <div className="col-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="title">Vos préférences</h2>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
