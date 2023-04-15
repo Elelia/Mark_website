@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 export default function Administration() {
     const user = useContext(UserContext);
     const [films, setFilms] = useState([]);
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
         axios.get('http://192.168.1.73:5000/seriefilm/film')

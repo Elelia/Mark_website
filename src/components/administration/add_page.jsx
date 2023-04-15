@@ -9,8 +9,13 @@ import {useNavigate} from "react-router-dom";
 
 export default function Administration() {
     const user = useContext(UserContext);
+    const [titleFilm, setTitleFilm] = useState("");
+    const [titleSerie, setTitleSerie] = useState("");
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
+    const [selectedCategFilm, setSelectedCategFilm] = useState("");
+    const [inputFilm, setInputFilm] = useState("");
+    const [selectedCategSerie, setSelectedCategSerie] = useState("");
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -28,7 +33,19 @@ export default function Administration() {
         fetchCategories();
     }, []);
 
+    const searchFilm = async (event) => {
+        event.preventDefault();
+        console.log(selectedCategFilm);
+        try {
+
+        } catch (err) {
+            console.log(err);
+            alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
+        }
+    }
+
     return(
+        // créer une composant pour le tableau ?
         <div className="container">
             <div className="row">
                 <div className="col-2"></div>
@@ -36,13 +53,16 @@ export default function Administration() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Cherchez des films pour les ajouter</h2>
-                            <Form>
+                            <Form onSubmit={searchFilm}>
                                 <Form.Group className="mb-3" controlId="formMovieTitle">
-                                    <Form.Control type="" placeholder="titre du film" value="" />
+                                    <Form.Control placeholder="titre du film" onChange={(event) => setInputFilm(event.target.value)} value={inputFilm} />
                                 </Form.Group>
                                 <h3>ou</h3>
-                                <Form.Select>
+                                <Form.Select onChange={(event) => setSelectedCategFilm(event.target.value)}>
                                     <option>Catégories</option>
+                                    {categFilm.map(categ => (
+                                        <option value={categ.id}>{categ.nom}</option>
+                                    ))}
                                 </Form.Select>
                                 <br/>
                                 <Button variant="primary" type="submit">
@@ -58,11 +78,14 @@ export default function Administration() {
                             <h2 className="title">Cherchez des séries pour les ajouter</h2>
                             <Form>
                                 <Form.Group className="mb-3" controlId="formMovieTitle">
-                                    <Form.Control type="" placeholder="titre de la série" value="" />
+                                    <Form.Control placeholder="titre de la série" value="" />
                                 </Form.Group>
                                 <h3>ou</h3>
                                 <Form.Select>
                                     <option>Catégories</option>
+                                    {categSerie.map(categ => (
+                                        <option value={categ.id}>{categ.nom}</option>
+                                    ))}
                                 </Form.Select>
                                 <br/>
                                 <Button variant="primary" type="submit">

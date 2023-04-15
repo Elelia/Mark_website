@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useGoogleLogin } from '@react-oauth/google';
 
 export default function Connexion() {
@@ -13,6 +16,14 @@ export default function Connexion() {
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [show, setShow] = useState(false);
+    const [emailSign, setEmailSign] = useState('');
+    const [passwordSign, setPasswordSign] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setlastName] = useState('');
+
+    const signInClose = () => setShow(false);
+    const signInShow = () => setShow(true);
 
     // pour cacher la navbar
     useEffect(() => {
@@ -34,7 +45,7 @@ export default function Connexion() {
         const fetchGoogleUser = async () => {
             if (userGoogle) {
                 let mail = "";
-                let nom = "";
+                let lastName = "";
                 let prenom = "";
                 let admin = false;
                 let mdp = "";
@@ -48,7 +59,7 @@ export default function Connexion() {
                     })
                         .then((res) => {
                             mail = res.data.email;
-                            nom = res.data.family_name;
+                            lastName = res.data.family_name;
                             prenom = res.data.given_name;
                         })
                         .catch((err) => console.log(err));
@@ -56,9 +67,8 @@ export default function Connexion() {
                     const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${mail}`);
                     if (userByMail.data.message === "no user with this mail") {
                         //là on insert le user dans la base de données
-                        console.log(nom);
                         await axios.put(`http://192.168.1.73:5000/users/create`, {
-                            nom,
+                            lastName,
                             prenom,
                             mail,
                             admin,
@@ -98,8 +108,36 @@ export default function Connexion() {
         }
     }
 
-    const signIn = () => {
-
+    //inscription
+    const signIn = async () => {
+        if(emailSign === '' || lastName === '' || firstName === '' || passwordSign === '') {
+            alert("Vous n'avez pas rempli tout le formulaire. Merci de recommencer.");
+        } else {
+            let mail = emailSign;
+            let nom = lastName;
+            let prenom = firstName;
+            let mdp = passwordSign;
+            let admin = false;
+            try {
+                const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${emailSign}`);
+                if (userByMail.data.message === "no user with this mail") {
+                    await axios.put(`http://192.168.1.73:5000/users/create`, {
+                        nom,
+                        prenom,
+                        mail,
+                        admin,
+                        mdp
+                    });
+                    signInClose();
+                    alert("Votre inscription est réussie, vous pouvez à présent vous connecter.");
+                } else {
+                    alert("L'adresse mail que vous avez saisi est déjà utilisée. Merci d'en choisir une autre.");
+                }
+            } catch (err) {
+                console.log(err);
+                alert("Votre inscription a échoué. Veuillez réessayer.");
+            }
+        }
     };
 
     const loginGoogle = useGoogleLogin({
@@ -132,11 +170,45 @@ export default function Connexion() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Pas encore inscrit ?</h2>
-                            <Button type="button" onClick={() => signIn()}>Inscription</Button><br/>
+                            <Button type="button" onClick={signInShow}>Inscription</Button><br/>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal show={show} onHide={signInClose} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Formulaire d'inscription</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formEmailSign">
+                            <Form.Label>Votre dresse mail</Form.Label>
+                            <Form.Control type="email" placeholder="name@example.com" autoFocus value={emailSign} onChange={(e) => setEmailSign(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formLastNameSign">
+                            <Form.Label>Votre nom</Form.Label>
+                            <Form.Control type="text" placeholder="Nom" value={lastName} onChange={(e) => setlastName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formfirstNameSign">
+                            <Form.Label>Votre prénom</Form.Label>
+                            <Form.Control type="text" placeholder="Prénom" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formPasswordSign">
+                            <Form.Label>Votre mot de passe</Form.Label>
+                            <Form.Control type="password" placeholder="Mot de passe" value={passwordSign} onChange={(e) => setPasswordSign(e.target.value)} />
+                        </Form.Group>
+                        <ProgressBar animated now={45} />
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={signInClose}>
+                        Annuler
+                    </Button>
+                    <Button variant="primary" onClick={() => signIn()}>
+                        Valider votre inscription
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
