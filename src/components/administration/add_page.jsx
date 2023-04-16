@@ -5,6 +5,7 @@ import './administration_page.css';
 import Button from "react-bootstrap/Button";
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+import TableSerieFilm from "./table_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
 
 export default function Administration() {
@@ -14,8 +15,43 @@ export default function Administration() {
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
     const [selectedCategFilm, setSelectedCategFilm] = useState("");
+    const [searchFilms, setSearchFilms] = useState(null);
     const [inputFilm, setInputFilm] = useState("");
     const [selectedCategSerie, setSelectedCategSerie] = useState("");
+
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Id',
+                accessor: 'id',
+            },
+            {
+                Header: 'Nom',
+                accessor: 'nom',
+            },
+            {
+                Header: 'Genre',
+                accessor: 'cat_name',
+            },
+            {
+                Header: 'Date de sortie',
+                accessor: 'date_sortie',
+            },
+            {
+                Header: 'Bande annonce',
+                accessor: 'url',
+            },
+            {
+                Header: 'Affiche',
+                accessor: 'url_affiche',
+            },
+            {
+                Header: 'Vignette',
+                accessor: 'url_vignette',
+            },
+        ],
+        []
+    );
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -37,7 +73,10 @@ export default function Administration() {
         event.preventDefault();
         console.log(selectedCategFilm);
         try {
-
+            //changer la requête pour qu'elle utilise le fichier json de tmdb
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
+            console.log(filmsCategories.data);
+            setSearchFilms(filmsCategories.data);
         } catch (err) {
             console.log(err);
             alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
@@ -96,6 +135,7 @@ export default function Administration() {
                     </div>
                 </div>
             </div>
+            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} /> }
         </div>
     )
 }
