@@ -1,6 +1,7 @@
 import Slider from 'react-slick';
 import React, { Component, useState } from "react";
-import 'slick-carousel/slick/slick-theme.css';
+//import '../../../node_modules/slick-carousel/slick/slick.css';
+//import '../../../node_modules/slick-carousel/slick//slick-theme.css';
 import './video_slider.css';
 import ResumePage from '../resume/resume_page';
 
@@ -20,20 +21,39 @@ export default function VideoSlider(props) {
     };
 
     const settings = {
-        dots: true,
+        className: "center",
+        centerMode: true,
         infinite: true,
+        centerPadding: 0,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
-
-        responsive: [{
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2
+        swipeToSlide: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
             }
-        }]
+        ]
     };
 
     return (

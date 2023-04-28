@@ -56,8 +56,8 @@ export default function Profile() {
     return(
         <Container>
             <Row>
-                <Col className="4"></Col>
-                <Col className="4">
+                <Col sm={2} md={2} lg={4}></Col>
+                <Col xs={12} sm={8} md={8} lg={4}>
                     <Card>
                         <Card.Body>
                             <h2 className="title">Votre profil</h2>

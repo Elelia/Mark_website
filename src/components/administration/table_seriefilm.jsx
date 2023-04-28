@@ -5,7 +5,6 @@ import { BsCheckLg } from "react-icons/bs";
 import BTable from 'react-bootstrap/Table';
 
 export default function TableSerieFilm(props) {
-    console.log(props.films);
 
     const IndeterminateCheckbox = React.forwardRef(
         ({ indeterminate, ...rest }, ref) => {
