@@ -3,6 +3,10 @@ import {UserContext} from "../userContext";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './connexion_page.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -98,10 +102,13 @@ export default function Connexion() {
             //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
+            }, {
+                withCredentials: true,
+                credentials: 'include'
             });
             setUser(res.data.user[0]);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-            login(res.data.user[0].id, res.data.user[0].admin);
+            login(res.data.user.id, res.data.user.admin);
         } catch (err) {
             console.log(err);
             alert("Votre mot de passe et/ou votre adresse mail ne correspond pas. Veuillez réessayer.");
@@ -121,7 +128,7 @@ export default function Connexion() {
             try {
                 const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${emailSign}`);
                 if (userByMail.data.message === "no user with this mail") {
-                    await axios.put(`http://192.168.1.73:5000/users/create`, {
+                    await axios.put(`http:/192.168.1.73:5000/users/create`, {
                         nom,
                         prenom,
                         mail,
@@ -146,35 +153,35 @@ export default function Connexion() {
     });
 
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col-4"></div>
-                <div className="col-4">
+        <Container>
+            <Row>
+                <Col xs lg="4"></Col>
+                <Col xs lg="4">
                     <h1 className="maintitle">Mark</h1>
-                    <div className="card">
-                        <div className="card-body">
+                    <Card>
+                        <Card.Body>
                             <h2 className="title">Connectez-vous !</h2>
-                            <form onSubmit={handleSubmit}>
-                                <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="votre@mail.com" aria-label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                                </div>
-                                <div className="input-group mb-3">
-                                    <input type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                                </div>
-                                <Button type="submit" className="">Connexion</Button>
-                            </form>
+                            <Form>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control type="email" className="form-control" placeholder="votre@mail.com" aria-label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control type="password" className="form-control" placeholder="Mot de passe" aria-label="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                </Form.Group>
+                                <Button type="submit" onClick={handleSubmit}>Connexion</Button>
+                            </Form>
                             <br/>
                             <Button onClick={() => loginGoogle()}>Connectez-vous avec Google </Button>
-                        </div>
-                    </div><br/>
-                    <div className="card">
-                        <div className="card-body">
+                        </Card.Body>
+                    </Card><br/>
+                    <Card>
+                        <Card.Body>
                             <h2 className="title">Pas encore inscrit ?</h2>
                             <Button type="button" onClick={signInShow}>Inscription</Button><br/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
             <Modal show={show} onHide={signInClose} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Formulaire d'inscription</Modal.Title>
@@ -182,7 +189,7 @@ export default function Connexion() {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="formEmailSign">
-                            <Form.Label>Votre dresse mail</Form.Label>
+                            <Form.Label>Votre adresse mail</Form.Label>
                             <Form.Control type="email" placeholder="name@example.com" autoFocus value={emailSign} onChange={(e) => setEmailSign(e.target.value)}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formLastNameSign">
@@ -209,6 +216,6 @@ export default function Connexion() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </Container>
     )
 }

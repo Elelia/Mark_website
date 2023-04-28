@@ -12,7 +12,6 @@ function NavigationBar() {
     const user = useContext(UserContext);
     const location = useLocation();
     const admin = user.user.isAdmin;
-    //console.log(admin);
 
     return (
         <>

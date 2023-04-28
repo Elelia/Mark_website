@@ -14,6 +14,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [videoModalIsOpen, setVideoModalIsOpen] = useState(false);
     const [comment, setComment] = useState('');
     const [note, setNote] = useState('');
+    const [formattedDate, setFormattedDate] = useState('');
     const seriefilmId = video.id;
     const videoId = video.id_video;
 
@@ -40,6 +41,9 @@ export default function ResumePage({isOpen, closeModal, video}) {
     }
 
     useEffect(() => {
+        const date = new Date(video.date_sortie);
+        setFormattedDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+
         getAvis();
         getUrlVideo();
     }, []);
@@ -49,8 +53,8 @@ export default function ResumePage({isOpen, closeModal, video}) {
         const userId = user.user.userId;
         const date = new Date().toLocaleString();
         try {
-            //await axios.put('https:///mark-api.vercel.app/seriefilm/avis/insert', {
-            await axios.put('http://192.168.1.73:5000/seriefilm/avis/insert', {
+            //await axios.post('https:///mark-api.vercel.app/seriefilm/avis/insert', {
+            await axios.post('http://192.168.1.73:5000/seriefilm/avis/insert', {
                 userId,
                 seriefilmId,
                 comment,
@@ -82,7 +86,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
                     marginRight: '-50%',
                     transform: 'translate(-50%, -50%)',
                     maxWidth: '80%',
-                    maxHeight: '90%',
+                    maxHeight: '100%',
                 },
             }}
         >
@@ -96,8 +100,9 @@ export default function ResumePage({isOpen, closeModal, video}) {
                 <div className="row">
                     <div className="col-8">
                         <h2>{video.nom}</h2>
+                        <img src={video.url_affiche}/>
                         <p>{video.resume}</p>
-                        <p>{video.date_sortie}</p>
+                        <p>{formattedDate}</p>
                         <span onClick={() => setVideoModalIsOpen(true)}><BsFillPlayCircleFill size={32}/></span>
                     </div>
                     <div className="col-4">

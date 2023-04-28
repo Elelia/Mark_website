@@ -1,6 +1,5 @@
 import Slider from 'react-slick';
 import React, { Component, useState } from "react";
-import axios from "axios";
 import 'slick-carousel/slick/slick-theme.css';
 import './video_slider.css';
 import ResumePage from '../resume/resume_page';
@@ -52,18 +51,18 @@ export default function VideoSlider(props) {
                                 </div>
                             ))}
                         </Slider>
-                        {/*ouvre le modal seulement si on a cliqué sur une vidéo*/}
-                        {selectedVideo && (
-                            <ResumePage
-                                isOpen={modalIsOpen}
-                                closeModal={closeModal}
-                                video={selectedVideo}
-                            />
-                        )}
+                        {/*ouvre le modal seulement si on a cliqué sur une image*/}
                         <br/>
                     </div>
                 );
             })}
+            {selectedVideo && (
+                <ResumePage
+                    isOpen={modalIsOpen}
+                    closeModal={closeModal}
+                    video={selectedVideo}
+                />
+            )}
         </div>
     );
 }

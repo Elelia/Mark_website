@@ -9,6 +9,7 @@ import Deconnexion from "./components/deconnexion/deconnexion";
 import Administration from "./components/administration/administration_page";
 import Modification from "./components/administration/modification_page";
 import Ajout from "./components/administration/add_page";
+import Preference from "./components/profile/preference_page";
 import {UserProvider} from "./components/userContext";
 
 function App() {
@@ -19,26 +20,13 @@ function App() {
                   <Navbar/>
                   <Routes>
                     <Route exact path="/" element={<Connexion/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/streaming" element={<StreamingHome/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/contact" element={<Contact/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/profile" element={<Profile/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/administration" element={<Administration/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/modification" element={<Modification/>} />
-                  </Routes>
-                  <Routes>
                       <Route path="/add" element={<Ajout/>} />
-                  </Routes>
-                  <Routes>
+                      <Route path="/preference" element={<Preference/>} />
                       <Route path="/deconnexion" element={<Deconnexion/>} />
                   </Routes>
               </BrowserRouter>
