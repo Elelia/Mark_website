@@ -155,8 +155,8 @@ export default function Connexion() {
     return(
         <Container>
             <Row>
-                <Col xs lg="4"></Col>
-                <Col xs lg="4">
+                <Col sm={2} md={2} lg={4}></Col>
+                <Col xs={12} sm={8} md={8} lg={4}>
                     <h1 className="maintitle">Mark</h1>
                     <Card>
                         <Card.Body>
