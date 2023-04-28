@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTable, useRowSelect } from 'react-table';
-import { BsCheckLg } from "react-icons/bs";
 import BTable from 'react-bootstrap/Table';
 
 export default function TableSerieFilm(props) {
@@ -83,21 +82,21 @@ export default function TableSerieFilm(props) {
                 })}
                 </tbody>
             </BTable>
-            {/*<p>Selected Rows: {Object.keys(selectedRowIds).length}</p>*/}
-            {/*<pre>*/}
-            {/*    <code>*/}
-            {/*      {JSON.stringify(*/}
-            {/*          {*/}
-            {/*              selectedRowIds: selectedRowIds,*/}
-            {/*              'selectedFlatRows[].original': selectedFlatRows.map(*/}
-            {/*                  d => d.original*/}
-            {/*              ),*/}
-            {/*          },*/}
-            {/*          null,*/}
-            {/*          2*/}
-            {/*      )}*/}
-            {/*    </code>*/}
-            {/*</pre>*/}
+            <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+            <pre>
+                <code>
+                  {JSON.stringify(
+                      {
+                          selectedRowIds: selectedRowIds,
+                          'selectedFlatRows[].original': selectedFlatRows.map(
+                              d => d.original
+                          ),
+                      },
+                      null,
+                      2
+                  )}
+                </code>
+            </pre>
         </div>
     );
 }

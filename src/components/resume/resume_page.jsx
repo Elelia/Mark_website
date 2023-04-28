@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {UserContext} from "../userContext";
+import {UserContext} from "../utils/userContext";
 import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";

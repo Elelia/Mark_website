@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext  } from 'react';
-import {UserContext} from "../userContext";
+import {UserContext} from "../utils/userContext";
 import axios from "axios";
-import Accordion from 'react-bootstrap/Accordion';
-import Table from 'react-bootstrap/Table';
+import { Button, Accordion } from "react-bootstrap";
 import TableSerieFilm from "../administration/table_seriefilm";
-import Button from "react-bootstrap/Button";
 
 export default function Preference() {
     const [categoriesFilm, setCategoriesFilm] = useState([]);

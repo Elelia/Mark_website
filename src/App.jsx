@@ -10,7 +10,8 @@ import Administration from "./components/administration/administration_page";
 import Modification from "./components/administration/modification_page";
 import Ajout from "./components/administration/add_page";
 import Preference from "./components/profile/preference_page";
-import {UserProvider} from "./components/userContext";
+import {UserProvider} from "./components/utils/userContext";
+import PrivateRoutes from "./components/utils/PrivateRoutes";
 
 function App() {
 
@@ -19,14 +20,16 @@ function App() {
               <BrowserRouter>
                   <Navbar/>
                   <Routes>
-                    <Route exact path="/" element={<Connexion/>} />
+                      <Route exact path="/" element={<Connexion/>} />
                       <Route path="/streaming" element={<StreamingHome/>} />
-                      <Route path="/contact" element={<Contact/>} />
-                      <Route path="/profile" element={<Profile/>} />
-                      <Route path="/administration" element={<Administration/>} />
-                      <Route path="/modification" element={<Modification/>} />
-                      <Route path="/add" element={<Ajout/>} />
-                      <Route path="/preference" element={<Preference/>} />
+                      <Route element={<PrivateRoutes/>}>
+                          <Route path="/contact" element={<Contact/>} />
+                          <Route path="/profile" element={<Profile/>} />
+                          <Route path="/administration" element={<Administration/>} />
+                          <Route path="/modification" element={<Modification/>} />
+                          <Route path="/add" element={<Ajout/>} />
+                          <Route path="/preference" element={<Preference/>} />
+                      </Route>
                       <Route path="/deconnexion" element={<Deconnexion/>} />
                   </Routes>
               </BrowserRouter>

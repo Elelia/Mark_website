@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext  } from 'react';
-import {UserContext} from "../userContext";
+import {UserContext} from "../utils/userContext";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './profile_page.css';
