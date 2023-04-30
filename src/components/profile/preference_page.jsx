@@ -7,6 +7,10 @@ import TableSerieFilm from "../administration/table_seriefilm";
 export default function Preference() {
     const [categoriesFilm, setCategoriesFilm] = useState([]);
     const [categoriesSerie, setCategoriesSerie] = useState([]);
+    const [thisUser, setThisUser] = useState({
+        id: null,
+        mail: null
+    });
 
     const columns = React.useMemo(
         () => [
@@ -27,22 +31,48 @@ export default function Preference() {
 
         const getCategories = async () => {
             try {
-                const categoriesFilms = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
-                console.log(categoriesFilms.data);
+                const categoriesFilms = await axios.get('http://192.168.1.27:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesFilms.data);
 
-                const categoriesSeries = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                const categoriesSeries = await axios.get('http://192.168.1.27:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesSeries.data);
             } catch (error) {
                 console.log(error);
             }
         };
 
+        const getInfoUser = async () => {
+            try {
+                const res = await axios.get(`http://192.168.1.27:5000/users/user/`);
+                setThisUser(res.data);
+            } catch (err) {
+                console.log(err);
+                alert("Erreur au chargement de vos données");
+            }
+        };
+
         getCategories();
+        getInfoUser();
     }, []);
 
-    const validate = async () => {
-
+    const validateCategorie = async (rows) => {
+        console.log(rows);
+        try {
+            let id_compte = thisUser.id;
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_categorie = rows[i].original.id;
+                await axios.post(`http://192.168.1.27:5000/users/prefcat`, {
+                    id_compte,
+                    id_categorie
+                });
+            }
+            alert("Vos préférences ont été sauvegardées.");
+        } catch(err) {
+            console.log(err);
+            alert("Vos préférences n'ont pas été validées.");
+        }
     };
 
     return(
@@ -57,13 +87,13 @@ export default function Preference() {
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Catégories des films</Accordion.Header>
                                     <Accordion.Body>
-                                        {categoriesFilm && <TableSerieFilm films={categoriesFilm} columns={columns} /> }
+                                        {categoriesFilm && <TableSerieFilm films={categoriesFilm} columns={columns} onSelectedRows={validateCategorie} /> }
                                     </Accordion.Body>
                                 </Accordion.Item>
                                 <Accordion.Item eventKey="1">
                                     <Accordion.Header>Catégories des séries</Accordion.Header>
                                     <Accordion.Body>
-                                        {categoriesSerie && <TableSerieFilm films={categoriesSerie} columns={columns} /> }
+                                        {categoriesSerie && <TableSerieFilm films={categoriesSerie} columns={columns} onSelectedRows={validateCategorie} /> }
                                     </Accordion.Body>
                                 </Accordion.Item>
                                 <Accordion.Item eventKey="2">
@@ -79,8 +109,6 @@ export default function Preference() {
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
-                            <br/>
-                            <Button onClick={validate}>Valider vos préférences</Button>
                         </div>
                     </div>
                 </div>

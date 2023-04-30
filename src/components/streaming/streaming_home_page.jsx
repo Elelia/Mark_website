@@ -17,11 +17,11 @@ export default function StreamingHome() {
         const fetchDataFilm = async () => {
             try {
                 //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                const categoriesResponse = await axios.get('http://192.168.1.27:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesResponse.data);
 
                 //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film');
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film');
+                const videosResponse = await axios.get('http://192.168.1.27:5000/seriefilm/film');
                 setVideosFilm(videosResponse.data);
             } catch (error) {
                 console.log(error);
@@ -31,11 +31,11 @@ export default function StreamingHome() {
         const fetchDataSerie = async () => {
             try {
                 //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                const categoriesResponse = await axios.get('http://192.168.1.27:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesResponse.data);
 
                 //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie');
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie');
+                const videosResponse = await axios.get('http://192.168.1.27:5000/seriefilm/serie');
                 setVideosSerie(videosResponse.data);
             } catch (error) {
                 console.log(error);

@@ -2,8 +2,10 @@ import React, { Component, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTable, useRowSelect } from 'react-table';
 import BTable from 'react-bootstrap/Table';
+import {Button} from "react-bootstrap";
 
 export default function TableSerieFilm(props) {
+    const { onSelectedRows } = props;
 
     const IndeterminateCheckbox = React.forwardRef(
         ({ indeterminate, ...rest }, ref) => {
@@ -49,7 +51,12 @@ export default function TableSerieFilm(props) {
                 ...columns,
             ])
         }
-    )
+    );
+
+    const validate = () => {
+        //console.log(selectedFlatRows);
+        onSelectedRows(selectedFlatRows);
+    };
 
     return (
         <div>
@@ -82,21 +89,23 @@ export default function TableSerieFilm(props) {
                 })}
                 </tbody>
             </BTable>
-            <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
-            <pre>
-                <code>
-                  {JSON.stringify(
-                      {
-                          selectedRowIds: selectedRowIds,
-                          'selectedFlatRows[].original': selectedFlatRows.map(
-                              d => d.original
-                          ),
-                      },
-                      null,
-                      2
-                  )}
-                </code>
-            </pre>
+            {/*<p>Selected Rows: {Object.keys(selectedRowIds).length}</p>*/}
+            {/*<pre>*/}
+            {/*    <code>*/}
+            {/*      {JSON.stringify(*/}
+            {/*          {*/}
+            {/*              selectedRowIds: selectedRowIds,*/}
+            {/*              'selectedFlatRows[].original': selectedFlatRows.map(*/}
+            {/*                  d => d.original*/}
+            {/*              ),*/}
+            {/*          },*/}
+            {/*          null,*/}
+            {/*          2*/}
+            {/*      )}*/}
+            {/*    </code>*/}
+            {/*</pre>*/}
+            <br/>
+            <Button onClick={validate}>Valider</Button>
         </div>
     );
 }

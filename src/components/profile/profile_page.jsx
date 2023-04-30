@@ -3,13 +3,7 @@ import {UserContext} from "../utils/userContext";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './profile_page.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import { Container, Row, Col, Card, Button, Form, Modal } from 'react-bootstrap';
 
 
 export default function Profile() {
@@ -42,7 +36,7 @@ export default function Profile() {
     useEffect(()  => {
         const getInfoUser = async () => {
             try {
-                const res = await axios.get(`http://192.168.1.73:5000/users/user/`);
+                const res = await axios.get(`http://192.168.1.27:5000/users/user/`);
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
