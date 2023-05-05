@@ -42,7 +42,7 @@ export default function Connexion() {
         const fetchGoogleUser = async () => {
             if (userGoogle) {
                 let mail = "";
-                let lastName = "";
+                let nom = "";
                 let prenom = "";
                 let admin = false;
                 let mdp = "";
@@ -56,7 +56,7 @@ export default function Connexion() {
                     })
                         .then((res) => {
                             mail = res.data.email;
-                            lastName = res.data.family_name;
+                            nom = res.data.family_name;
                             prenom = res.data.given_name;
                         })
                         .catch((err) => console.log(err));
@@ -68,7 +68,7 @@ export default function Connexion() {
                         //là on insert le user dans la base de données
                         await axios.post(`https://mark-api.vercel.app/users/create`, {
                         //await axios.post(`http://192.168.1.73:5000/users/create`, {
-                            lastName,
+                            nom,
                             prenom,
                             mail,
                             admin,
