@@ -125,7 +125,7 @@ export default function Connexion() {
                 const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${emailSign}`);
                 //const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${emailSign}`);
                 if (userByMail.data.message === "no user with this mail") {
-                    await axios.put(`https://mark-api.vercel.app/users/create`, {
+                    await axios.post(`https://mark-api.vercel.app/users/create`, {
                     //await axios.put(`http://192.168.1.73:5000/users/create`, {
                         nom,
                         prenom,
