@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext  } from 'react';
 import {UserContext} from "../utils/userContext";
 import axios from "axios";
 import './administration_page.css';
-import Button from "react-bootstrap/Button";
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
+import { Button, Form } from "react-bootstrap";
 import TableSerieFilm from "./table_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
 
@@ -22,33 +20,21 @@ export default function Administration() {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Id',
-                accessor: 'id',
-            },
-            {
                 Header: 'Nom',
-                accessor: 'nom',
+                accessor: 'title',
             },
             {
                 Header: 'Genre',
-                accessor: 'cat_name',
+                accessor: 'categorie',
+            },
+            {
+                Header: 'Résumé',
+                accessor: 'overview',
             },
             {
                 Header: 'Date de sortie',
-                accessor: 'date_sortie',
-            },
-            {
-                Header: 'Bande annonce',
-                accessor: 'url',
-            },
-            {
-                Header: 'Affiche',
-                accessor: 'url_affiche',
-            },
-            {
-                Header: 'Vignette',
-                accessor: 'url_vignette',
-            },
+                accessor: 'release_date',
+            }
         ],
         []
     );
@@ -74,17 +60,36 @@ export default function Administration() {
         console.log(selectedCategFilm);
         try {
             //changer la requête pour qu'elle utilise le fichier json de tmdb
-            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
+            //si j'ai la catégorie filter sur la catégorie
+            //sinon filtrer avec le nom
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}`);
             console.log(filmsCategories.data);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
             console.log(err);
             alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
         }
-    }
+    };
+
+    const validateMovie = async (rows) => {
+        console.log(rows);
+        try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_movie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                    id_movie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }
+    };
 
     return(
-        // créer une composant pour le tableau ?
         <div className="container">
             <div className="row">
                 <div className="col-2"></div>
@@ -135,7 +140,7 @@ export default function Administration() {
                     </div>
                 </div>
             </div>
-            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} /> }
+            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
         </div>
     )
 }
