@@ -53,10 +53,10 @@ export default function TableAllSerieFilm(props) {
         }
     );
 
-    const validate = () => {
-        //console.log(selectedFlatRows);
-        onSelectedRows(selectedFlatRows);
-    };
+    // const validate = () => {
+    //     //console.log(selectedFlatRows);
+    //     onSelectedRows(selectedFlatRows);
+    // };
 
     return (
         <div>
@@ -105,7 +105,7 @@ export default function TableAllSerieFilm(props) {
             {/*    </code>*/}
             {/*</pre>*/}
             <br/>
-            <Button onClick={validate}>Valider</Button>
+            {/*<Button onClick={validate}>Valider</Button>*/}
         </div>
     );
 }

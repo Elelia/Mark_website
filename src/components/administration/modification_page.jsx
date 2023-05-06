@@ -5,55 +5,183 @@ import './administration_page.css';
 import Button from "react-bootstrap/Button";
 import Table from 'react-bootstrap/Table';
 import {useNavigate} from "react-router-dom";
+import TableAllSerieFilm from "./table_all_seriefilm";
+import {Form} from "react-bootstrap";
+import TableSerieFilm from "./table_seriefilm";
 
-export default function Administration() {
-    const user = useContext(UserContext);
-    const [films, setFilms] = useState([]);
-    const [series, setSeries] = useState([]);
+export default function ModificationPage() {
+    //const user = useContext(UserContext);
+    const [categFilm, setCategFilm] = useState([]);
+    const [categSerie, setCategSerie] = useState([]);
+    const [selectedCategFilm, setSelectedCategFilm] = useState("");
+    const [searchFilms, setSearchFilms] = useState(null);
+    const [inputFilm, setInputFilm] = useState("");
+    const [selectedCategSerie, setSelectedCategSerie] = useState("");
+    const [searchSeries, setSearchSeries] = useState(null);
+
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Nom',
+                accessor: 'title',
+            },
+            {
+                Header: 'Genre',
+                accessor: 'categorie',
+            },
+            {
+                Header: 'Résumé',
+                accessor: 'overview',
+            },
+            {
+                Header: 'Date de sortie',
+                accessor: 'release_date',
+            }
+        ],
+        []
+    );
 
     useEffect(() => {
-        axios.get('http://192.168.1.73:5000/seriefilm/film')
-            .then(response => {
-                setFilms(response.data);
-            })
-            .catch(error => {
+        const fetchCategories = async () => {
+            try {
+                const categoriesFResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                setCategFilm(categoriesFResponse.data);
+
+                const categoriesSResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                setCategSerie(categoriesSResponse.data);
+            } catch (error) {
                 console.log(error);
-            });
+            }
+        };
+
+        fetchCategories();
     }, []);
+
+    const searchFilm = async (event) => {
+        event.preventDefault();
+        console.log(selectedCategFilm);
+        try {
+            //changer la requête pour qu'elle utilise le fichier json de tmdb
+            //si j'ai la catégorie filter sur la catégorie
+            //sinon filtrer avec le nom
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}`);
+            console.log(filmsCategories.data);
+            setSearchFilms(filmsCategories.data);
+        } catch (err) {
+            console.log(err);
+            alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
+        }
+    };
+
+    const searchSerie = async (event) => {
+        event.preventDefault();
+        console.log(selectedCategSerie);
+        try {
+            //changer la requête pour qu'elle utilise le fichier json de tmdb
+            //si j'ai la catégorie filter sur la catégorie
+            //sinon filtrer avec le nom
+            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
+            console.log(seriesCategories.data);
+            setSearchSeries(seriesCategories.data);
+        } catch (err) {
+            console.log(err);
+            alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
+        }
+    };
+
+    const validateMovie = async (rows) => {
+        console.log(rows);
+        try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_movie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                    id_movie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }
+    };
+
+    const validateSerie = async (rows) => {
+        console.log(rows);
+        try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_serie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/serie/insertSerie`, {
+                    id_serie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }
+    };
 
     return(
         <div className="container">
             <div className="row">
-                <div>
-                    <h1>Liste des films</h1>
-                    <Table striped bordered hover responsive>
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Titre</th>
-                            <th>Genre</th>
-                            <th>Date de sortie</th>
-                            <th>Bande annonce</th>
-                            <th>Affiche</th>
-                            <th>Vignette</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {films.map(film => (
-                            <tr key={film.id}>
-                                <td>{film.id}</td>
-                                <td>{film.nom}</td>
-                                <td>{film.cat_nom}</td>
-                                <td>{film.date_sortie}</td>
-                                <td>{film.id_bande_annonce}</td>
-                                <td>{film.url_affiche}</td>
-                                <td>{film.url_vignette}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </Table>
+                <div className="col-2"></div>
+                <div className="col-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="title">Cherchez des films pour les modifier</h2>
+                            <Form onSubmit={searchFilm}>
+                                <Form.Group className="mb-3" controlId="formMovieTitle">
+                                    <Form.Control placeholder="titre du film" onChange={(event) => setInputFilm(event.target.value)} value={inputFilm} />
+                                </Form.Group>
+                                <h3>ou</h3>
+                                <Form.Select onChange={(event) => setSelectedCategFilm(event.target.value)}>
+                                    <option>Catégories</option>
+                                    {categFilm.map(categ => (
+                                        <option value={categ.id}>{categ.nom}</option>
+                                    ))}
+                                </Form.Select>
+                                <br/>
+                                <Button variant="primary" type="submit">
+                                    Recherche
+                                </Button>
+                            </Form>
+                            <br/>
+                            <Button>Cherchez tous les films</Button>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="title">Cherchez des séries pour les modifier</h2>
+                            <Form onSubmit={searchSerie}>
+                                <Form.Group className="mb-3" controlId="formMovieTitle">
+                                    <Form.Control placeholder="titre de la série" value="" />
+                                </Form.Group>
+                                <h3>ou</h3>
+                                <Form.Select onChange={(event) => setSelectedCategSerie(event.target.value)}>
+                                    <option>Catégories</option>
+                                    {categSerie.map(categ => (
+                                        <option value={categ.id}>{categ.nom}</option>
+                                    ))}
+                                </Form.Select>
+                                <br/>
+                                <Button variant="primary" type="submit">
+                                    Recherche
+                                </Button>
+                            </Form>
+                            <br/>
+                            <Button>Cherchez toutes les séries</Button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
+            {searchSeries && <TableSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
         </div>
     )
 }

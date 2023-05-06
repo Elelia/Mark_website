@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VideoSlider from "../VideoSlider/video_slider.jsx";
 import axios from "axios";
 import Modal from 'react-modal';
+import VideoSliderPref from "../VideoSlider/video_slider_pref";
 
 Modal.setAppElement('#root');
 
@@ -12,6 +13,7 @@ export default function StreamingHome() {
     const [videosFilm, setVideosFilm] = useState([]);
     const [categoriesSerie, setCategoriesSerie] = useState([]);
     const [videosSerie, setVideosSerie] = useState([]);
+    const [preferenceFilms, setPreferenceFilms] = useState([]);
 
     useEffect(() => {
         const fetchDataFilm = async () => {
@@ -42,12 +44,24 @@ export default function StreamingHome() {
             }
         };
 
+        const fetchPreference = async () => {
+            try {
+                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                //const preferenceResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/bypref');
+                setPreferenceFilms(preferenceResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         fetchDataFilm();
         fetchDataSerie();
+        fetchPreference();
     }, []);
 
     return(
         <div className="container">
+            <VideoSliderPref films={preferenceFilms}/>
             <h1>Les films</h1>
             <VideoSlider videos={videosFilm} categories={categoriesFilm}/>
             <h1>Les séries</h1>

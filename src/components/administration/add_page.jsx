@@ -6,16 +6,15 @@ import { Button, Form } from "react-bootstrap";
 import TableSerieFilm from "./table_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
 
-export default function Administration() {
-    const user = useContext(UserContext);
-    const [titleFilm, setTitleFilm] = useState("");
-    const [titleSerie, setTitleSerie] = useState("");
+export default function AddPage() {
+    //const user = useContext(UserContext);
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
     const [selectedCategFilm, setSelectedCategFilm] = useState("");
     const [searchFilms, setSearchFilms] = useState(null);
     const [inputFilm, setInputFilm] = useState("");
     const [selectedCategSerie, setSelectedCategSerie] = useState("");
+    const [searchSeries, setSearchSeries] = useState(null);
 
     const columns = React.useMemo(
         () => [
@@ -71,6 +70,22 @@ export default function Administration() {
         }
     };
 
+    const searchSerie = async (event) => {
+        event.preventDefault();
+        console.log(selectedCategSerie);
+        try {
+            //changer la requête pour qu'elle utilise le fichier json de tmdb
+            //si j'ai la catégorie filter sur la catégorie
+            //sinon filtrer avec le nom
+            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
+            console.log(seriesCategories.data);
+            setSearchSeries(seriesCategories.data);
+        } catch (err) {
+            console.log(err);
+            alert("La recherche a échoué. Merci de réessayer ultèrieurement.");
+        }
+    };
+
     const validateMovie = async (rows) => {
         console.log(rows);
         try {
@@ -80,6 +95,24 @@ export default function Administration() {
                 let id_movie = rows[i].original.id;
                 await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
                     id_movie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }
+    };
+
+    const validateSerie = async (rows) => {
+        console.log(rows);
+        try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_serie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/serie/insertSerie`, {
+                    id_serie
                 });
             }
             alert("Enregistrement en base réussi.");
@@ -120,12 +153,12 @@ export default function Administration() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Cherchez des séries pour les ajouter</h2>
-                            <Form>
+                            <Form onSubmit={searchSerie}>
                                 <Form.Group className="mb-3" controlId="formMovieTitle">
                                     <Form.Control placeholder="titre de la série" value="" />
                                 </Form.Group>
                                 <h3>ou</h3>
-                                <Form.Select>
+                                <Form.Select onChange={(event) => setSelectedCategSerie(event.target.value)}>
                                     <option>Catégories</option>
                                     {categSerie.map(categ => (
                                         <option value={categ.id}>{categ.nom}</option>
@@ -141,6 +174,7 @@ export default function Administration() {
                 </div>
             </div>
             {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
+            {searchSeries && <TableSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
         </div>
     )
 }

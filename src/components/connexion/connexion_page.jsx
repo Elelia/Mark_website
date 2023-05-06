@@ -48,6 +48,7 @@ export default function Connexion() {
                 let mdp = "";
 
                 try {
+                    console.log(userGoogle.access_token);
                     await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
                         headers: {
                             Authorization: `Bearer ${userGoogle.access_token}`,
