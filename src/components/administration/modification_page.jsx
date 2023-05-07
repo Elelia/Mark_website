@@ -7,10 +7,10 @@ import Table from 'react-bootstrap/Table';
 import {useNavigate} from "react-router-dom";
 import TableAllSerieFilm from "./table_all_seriefilm";
 import {Form} from "react-bootstrap";
-import TableSerieFilm from "./table_seriefilm";
 
 export default function ModificationPage() {
     //const user = useContext(UserContext);
+    const navigate = useNavigate();
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
     const [selectedCategFilm, setSelectedCategFilm] = useState("");
@@ -23,19 +23,19 @@ export default function ModificationPage() {
         () => [
             {
                 Header: 'Nom',
-                accessor: 'title',
+                accessor: 'nom',
             },
             {
                 Header: 'Genre',
-                accessor: 'categorie',
+                accessor: 'cat_name',
             },
             {
                 Header: 'Résumé',
-                accessor: 'overview',
+                accessor: 'resume',
             },
             {
                 Header: 'Date de sortie',
-                accessor: 'release_date',
+                accessor: 'date_sortie',
             }
         ],
         []
@@ -59,12 +59,11 @@ export default function ModificationPage() {
 
     const searchFilm = async (event) => {
         event.preventDefault();
-        console.log(selectedCategFilm);
         try {
             //changer la requête pour qu'elle utilise le fichier json de tmdb
             //si j'ai la catégorie filter sur la catégorie
             //sinon filtrer avec le nom
-            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}`);
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
             console.log(filmsCategories.data);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
@@ -180,8 +179,8 @@ export default function ModificationPage() {
                     </div>
                 </div>
             </div>
-            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
-            {searchSeries && <TableSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
+            {searchFilms && <TableAllSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
+            {searchSeries && <TableAllSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
         </div>
     )
 }

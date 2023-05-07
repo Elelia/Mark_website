@@ -11,10 +11,11 @@ export default function Deconnexion() {
     useEffect(() => {
         const userLogout = async() => {
             try {
-                await axios.post('https://mark-api.vercel.app/users/auth/logout');
-                //await axios.post('http://192.168.1.73:5000/users/auth/logout');
+                //await axios.post('https://mark-api.vercel.app/users/auth/logout');
+                await axios.post('http://192.168.1.73:5000/users/auth/logout');
                 // Remove the JWT cookie from the client-side
                 document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                localStorage.clear();
                 logout();
             } catch (err) {
                 console.log(err);

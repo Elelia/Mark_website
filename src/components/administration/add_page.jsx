@@ -5,9 +5,10 @@ import './administration_page.css';
 import { Button, Form } from "react-bootstrap";
 import TableSerieFilm from "./table_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
+import {BsArrowLeftCircle} from "react-icons/bs";
 
 export default function AddPage() {
-    //const user = useContext(UserContext);
+    const navigate = useNavigate();
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
     const [selectedCategFilm, setSelectedCategFilm] = useState("");
@@ -58,10 +59,7 @@ export default function AddPage() {
         event.preventDefault();
         console.log(selectedCategFilm);
         try {
-            //changer la requête pour qu'elle utilise le fichier json de tmdb
-            //si j'ai la catégorie filter sur la catégorie
-            //sinon filtrer avec le nom
-            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}`);
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}/${inputFilm}`);
             console.log(filmsCategories.data);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
@@ -77,7 +75,7 @@ export default function AddPage() {
             //changer la requête pour qu'elle utilise le fichier json de tmdb
             //si j'ai la catégorie filter sur la catégorie
             //sinon filtrer avec le nom
-            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
+            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}/${inputFilm}`);
             console.log(seriesCategories.data);
             setSearchSeries(seriesCategories.data);
         } catch (err) {
@@ -122,18 +120,22 @@ export default function AddPage() {
         }
     };
 
+    const goBack = () => {
+        navigate(-1);
+    };
+
     return(
         <div className="container">
             <div className="row">
-                <div className="col-2"></div>
+                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircle size={32}/></span></div>
                 <div className="col-4">
                     <div className="card">
                         <div className="card-body">
                             <h2 className="title">Cherchez des films pour les ajouter</h2>
                             <Form onSubmit={searchFilm}>
-                                <Form.Group className="mb-3" controlId="formMovieTitle">
-                                    <Form.Control placeholder="titre du film" onChange={(event) => setInputFilm(event.target.value)} value={inputFilm} />
-                                </Form.Group>
+                                {/*<Form.Group className="mb-3" controlId="formMovieTitle">*/}
+                                {/*    <Form.Control placeholder="titre du film" onChange={(event) => setInputFilm(event.target.value)} value={inputFilm} />*/}
+                                {/*</Form.Group>*/}
                                 <h3>ou</h3>
                                 <Form.Select onChange={(event) => setSelectedCategFilm(event.target.value)}>
                                     <option>Catégories</option>
@@ -154,9 +156,9 @@ export default function AddPage() {
                         <div className="card-body">
                             <h2 className="title">Cherchez des séries pour les ajouter</h2>
                             <Form onSubmit={searchSerie}>
-                                <Form.Group className="mb-3" controlId="formMovieTitle">
-                                    <Form.Control placeholder="titre de la série" value="" />
-                                </Form.Group>
+                                {/*<Form.Group className="mb-3" controlId="formMovieTitle">*/}
+                                {/*    <Form.Control placeholder="titre de la série" value="" />*/}
+                                {/*</Form.Group>*/}
                                 <h3>ou</h3>
                                 <Form.Select onChange={(event) => setSelectedCategSerie(event.target.value)}>
                                     <option>Catégories</option>

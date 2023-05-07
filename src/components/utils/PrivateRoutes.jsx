@@ -2,9 +2,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 export default function PrivateRoutes() {
     //je dois récupérer le token ici
-    let auth = {'token':true};
+    let auth = localStorage.getItem('token');
 
     return (
-        auth.token ? <Outlet/> : <Navigate to='/'/>
+        auth ? <Outlet/> : <Navigate to='/'/>
     )
 }

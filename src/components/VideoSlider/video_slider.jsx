@@ -27,7 +27,7 @@ export default function VideoSlider(props) {
         centerPadding: 0,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToScroll: 1,
         swipeToSlide: true,
         responsive: [
             {

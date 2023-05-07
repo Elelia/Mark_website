@@ -6,6 +6,7 @@ import {UserContext} from "../utils/userContext";
 import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";
+import './resume_page.css';
 
 export default function ResumePage({isOpen, closeModal, video}) {
     const user = useContext(UserContext);
@@ -16,6 +17,7 @@ export default function ResumePage({isOpen, closeModal, video}) {
     const [note, setNote] = useState('');
     const [formattedDate, setFormattedDate] = useState('');
     const seriefilmId = video.id;
+    const id_film = video.id_film;
     const videoId = video.id_video;
 
     const getAvis = async () => {
@@ -69,6 +71,20 @@ export default function ResumePage({isOpen, closeModal, video}) {
         getAvis();
     }
 
+    const showVideo = async (e) => {
+        e.preventDefault();
+        try {
+            setVideoModalIsOpen(true);
+            const id_episode = null;
+            await axios.post('http://192.168.1.73:5000/seriefilm/film/saw', {
+                id_film,
+                id_episode
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -98,25 +114,28 @@ export default function ResumePage({isOpen, closeModal, video}) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-8">
+                    <div className="col-4">
+                        <img className="affiche" src={video.url_affiche}/>
+                    </div>
+                    <div className="col-4">
                         <h2>{video.nom}</h2>
-                        <img src={video.url_affiche}/>
-                        <p>{video.resume}</p>
-                        <p>{formattedDate}</p>
-                        <span onClick={() => setVideoModalIsOpen(true)}><BsFillPlayCircleFill size={32}/></span>
+                        <p>Synopsis : <br/>{video.resume}</p>
+                        <p>Date de sortie : {formattedDate}</p>
+                        <p>Lancer le film <span onClick={showVideo}><BsFillPlayCircleFill size={32}/></span></p>
                     </div>
                     <div className="col-4">
                         <div>
                             {avis.length > 0 ? (
                                 avis.map(avis => (
                                     <div key={avis.id}>
-                                        <h2>{avis.note} - {avis.date}</h2>
+                                        <h2>{avis.prenom}</h2>
+                                        <p>{avis.note} - {avis.jour}</p>
                                         <p>{avis.commentaire}</p>
                                         <br/>
                                     </div>
                                 ))
                             ) : (
-                                <p>Liste des avis</p>
+                                <p>Aucun avis</p>
                             )}
                         </div>
                         <Form onSubmit={handleSubmit}>

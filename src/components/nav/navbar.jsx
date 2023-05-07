@@ -18,8 +18,8 @@ function NavigationBar() {
             <Navbar id="navbar" sticky="top" bg="dark" variant="dark">
                 <Container>
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/streaming"><BsYoutube/> Streaming</Nav.Link>
+                        <Nav.Link as={Link} to="/film"><BsYoutube/> Film</Nav.Link>
+                        <Nav.Link as={Link} to="/serie"><BsYoutube/> Serie</Nav.Link>
                         <Nav.Link as={Link} to="/contact"><BsFillEnvelopeFill/> Contact</Nav.Link>
                         <Nav.Link as={Link} to="/profile">Profil</Nav.Link>
                         {admin === true && (
@@ -27,7 +27,18 @@ function NavigationBar() {
                         )}
                         <Nav.Link as={Link} to="/deconnexion">Déconnexion</Nav.Link>
                     </Nav>
-                    {location.pathname === '/streaming' && (
+                    {location.pathname === '/film' && (
+                        <Form className="d-flex">
+                            <Form.Control
+                                type="search"
+                                placeholder="Search"
+                                className="me-2"
+                                aria-label="Search"
+                            />
+                            <span onClick=""><BsSearch/></span>
+                        </Form>
+                    )}
+                    {location.pathname === '/serie' && (
                         <Form className="d-flex">
                             <Form.Control
                                 type="search"

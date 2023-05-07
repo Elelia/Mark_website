@@ -24,7 +24,7 @@ export default function VideoSliderPref(props) {
         centerPadding: 0,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToScroll: 1,
         swipeToSlide: true,
         responsive: [
             {
@@ -56,8 +56,9 @@ export default function VideoSliderPref(props) {
     return (
         <div>
             <h1>Notre sélection pour vous</h1>
+            <br/>
             <Slider {...settings}>
-                {props.films.map(film => (
+                {props.data.map(film => (
                     <div key={film.id} onClick={() => openModal(film)}>
                         <h3 class="movieTitle">{film.nom}</h3>
                         <img src={film.url_vignette}/>

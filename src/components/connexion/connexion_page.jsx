@@ -34,7 +34,7 @@ export default function Connexion() {
     //on redirige vers la page de streaming
     useEffect(() => {
         if (user !== null) {
-            navigate('/streaming');
+            navigate('/film');
         }
     }, [user]);
 
@@ -62,13 +62,13 @@ export default function Connexion() {
                         })
                         .catch((err) => console.log(err));
 
-                    const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${mail}`);
-                    //const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${mail}`);
+                    //const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${mail}`);
+                    const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${mail}`);
                     console.log(userByMail.data.message);
                     if (userByMail.data.message === "no user with this mail") {
                         //là on insert le user dans la base de données
-                        await axios.post(`https://mark-api.vercel.app/users/create`, {
-                        //await axios.post(`http://192.168.1.73:5000/users/create`, {
+                        //await axios.post(`https://mark-api.vercel.app/users/create`, {
+                        await axios.post(`http://192.168.1.73:5000/users/create`, {
                             nom,
                             prenom,
                             mail,
@@ -80,7 +80,7 @@ export default function Connexion() {
                         login(userByMail.data.user[0].id, userByMail.data.user[0].admin);
                     }
 
-                    navigate('/streaming');
+                    navigate('/film');
                 } catch(err) {
                     console.log(err);
                     alert("Une erreur est survenue, veuillez recommencer.");
@@ -95,16 +95,18 @@ export default function Connexion() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
-            const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            const res = await axios.post('http://192.168.1.73:5000/users/auth/login', {
+            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
             }, {
-                withCredentials: true,
-                credentials: 'include'
+                withCredentials: true
             });
             setUser(res.data.user[0]);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+            //le token est stocké dans le localstorage
+            //je n'arrive pas à l'envoyer dans les cookies
+            localStorage.setItem('token', res.data.token);
             login(res.data.user.id, res.data.user.admin);
         } catch (err) {
             console.log(err);
@@ -123,11 +125,11 @@ export default function Connexion() {
             let mdp = passwordSign;
             let admin = false;
             try {
-                const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${emailSign}`);
-                //const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${emailSign}`);
+                //const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${emailSign}`);
+                const userByMail = await axios.get(`http://192.168.1.73:5000/users/user/mail/${emailSign}`);
                 if (userByMail.data.message === "no user with this mail") {
-                    await axios.post(`https://mark-api.vercel.app/users/create`, {
-                    //await axios.put(`http://192.168.1.73:5000/users/create`, {
+                    //await axios.post(`https://mark-api.vercel.app/users/create`, {
+                    await axios.put(`http://192.168.1.73:5000/users/create`, {
                         nom,
                         prenom,
                         mail,
