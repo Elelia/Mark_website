@@ -10,30 +10,41 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 
 export default function Contact() {
+    const [mail, setMail] = useState("");
+    const [message, setMessage] = useState("");
+    const sendForm = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.put(`http://192.168.1.73:5000/users/contact`, {
+                mail,
+                message
+            });
+            console.log("Votre message a bien été envoyé, nous vous répondre dans les meilleurs délais.");
+        } catch (err) {
+            console.log(err);
+            alert("Le formulaire n'as pas pu être envoyé, veuillez recommencer.");
+        }
+    };
 
     return(
         <Container>
             <Row>
-                <Col md={4}></Col>
-                <Col md={4}>
+                <Col md={3}></Col>
+                <Col md={6}>
                     <Card className="card">
                         <Card.Body>
                             <Card.Title>Une question ? Contactez-nous !</Card.Title>
-                                <Form>
+                                <Form onSubmit={sendForm}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                        <Form.Text className="text-muted">
-                                            We'll never share your email with anyone else.
-                                        </Form.Text>
+                                        <Form.Label>Votre adresse mail</Form.Label>
+                                        <Form.Control type="email" placeholder="adresse@mail.com" value={mail} onChange={(e) => setMail(e.target.value)} />
                                     </Form.Group>
-
-                                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                        <Form.Label>Votre message</Form.Label>
+                                        <Form.Control as="textarea" rows={3} value={message} onChange={(e) => setMessage(e.target.value)} />
                                     </Form.Group>
                                     <Button variant="primary" type="submit">
-                                        Submit
+                                        Envoyer
                                     </Button>
                                 </Form>
                             </Card.Body>

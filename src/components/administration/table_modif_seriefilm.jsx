@@ -1,10 +1,12 @@
 import React, { Component, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useTable, useRowSelect } from 'react-table';
+import {useRowSelect, useTable} from 'react-table';
 import BTable from 'react-bootstrap/Table';
-import {Button} from "react-bootstrap";
+import {InputGroup, FormControl, Button} from "react-bootstrap";
+import './table.css';
 
-export default function TableSerieFilm(props) {
+export default function TableAllSerieFilm(props) {
+    const { onSaveChanges } = props;
     const { onSelectedRows } = props;
 
     const IndeterminateCheckbox = React.forwardRef(
@@ -24,18 +26,10 @@ export default function TableSerieFilm(props) {
         }
     );
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        selectedFlatRows,
-        state: { selectedRowIds },
-    } = useTable(
+    const tableInstance = useTable(
         {
             columns: props.columns,
-            data: props.films,
+            data: props.films
         },
         useRowSelect,
         hooks => {
@@ -53,8 +47,14 @@ export default function TableSerieFilm(props) {
         }
     );
 
-    const validate = () => {
-        //console.log(selectedFlatRows);
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows, state: { selectedRowIds } } = tableInstance;
+
+    const handleSaveChanges = () => {
+        onSaveChanges(tableInstance.rows.map((row) => row.original));
+    };
+
+    const handleDelete = () => {
+        console.log(selectedFlatRows);
         onSelectedRows(selectedFlatRows);
     };
 
@@ -72,15 +72,20 @@ export default function TableSerieFilm(props) {
                     </tr>
                 ))}
                 </thead>
-                <tbody>
+                <tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
+                            {row.cells.map((cell, index) => {
                                 return (
                                     <td {...cell.getCellProps()}>
-                                        {cell.render('Cell')}
+                                        {index === 0 ? cell.render('Cell') : (
+                                            <input type="text" defaultValue={cell.value} onChange={(e) => {
+                                                const newValue = e.target.value;
+                                                row.original[cell.column.id] = newValue;
+                                            }} />
+                                        )}
                                     </td>
                                 )
                             })}
@@ -89,23 +94,9 @@ export default function TableSerieFilm(props) {
                 })}
                 </tbody>
             </BTable>
-            {/*<p>Selected Rows: {Object.keys(selectedRowIds).length}</p>*/}
-            {/*<pre>*/}
-            {/*    <code>*/}
-            {/*      {JSON.stringify(*/}
-            {/*          {*/}
-            {/*              selectedRowIds: selectedRowIds,*/}
-            {/*              'selectedFlatRows[].original': selectedFlatRows.map(*/}
-            {/*                  d => d.original*/}
-            {/*              ),*/}
-            {/*          },*/}
-            {/*          null,*/}
-            {/*          2*/}
-            {/*      )}*/}
-            {/*    </code>*/}
-            {/*</pre>*/}
             <br/>
-            <Button onClick={validate}>Valider</Button>
+            <Button onClick={handleSaveChanges}>Valider les changements</Button>  <Button onClick={handleDelete}>Supprimer les lignes sélectionnées</Button>
+            <br/>
         </div>
     );
 }

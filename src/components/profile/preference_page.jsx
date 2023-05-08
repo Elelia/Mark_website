@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext  } from 'react';
 import {UserContext} from "../utils/userContext";
 import axios from "axios";
 import { Button, Accordion } from "react-bootstrap";
-import TableSerieFilm from "../administration/table_seriefilm";
+import TableSerieFilm from "../administration/table_add_seriefilm";
 
 export default function Preference() {
     const [categoriesFilm, setCategoriesFilm] = useState([]);

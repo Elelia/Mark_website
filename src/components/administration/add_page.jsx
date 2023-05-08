@@ -3,7 +3,7 @@ import {UserContext} from "../utils/userContext";
 import axios from "axios";
 import './administration_page.css';
 import { Button, Form } from "react-bootstrap";
-import TableSerieFilm from "./table_seriefilm.jsx";
+import Table from "./table_add_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
 import {BsArrowLeftCircle} from "react-icons/bs";
 
@@ -13,7 +13,6 @@ export default function AddPage() {
     const [categSerie, setCategSerie] = useState([]);
     const [selectedCategFilm, setSelectedCategFilm] = useState("");
     const [searchFilms, setSearchFilms] = useState(null);
-    const [inputFilm, setInputFilm] = useState("");
     const [selectedCategSerie, setSelectedCategSerie] = useState("");
     const [searchSeries, setSearchSeries] = useState(null);
 
@@ -57,10 +56,8 @@ export default function AddPage() {
 
     const searchFilm = async (event) => {
         event.preventDefault();
-        console.log(selectedCategFilm);
         try {
-            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}/${inputFilm}`);
-            console.log(filmsCategories.data);
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/get_tmdb/${selectedCategFilm}`);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
             console.log(err);
@@ -70,13 +67,8 @@ export default function AddPage() {
 
     const searchSerie = async (event) => {
         event.preventDefault();
-        console.log(selectedCategSerie);
         try {
-            //changer la requête pour qu'elle utilise le fichier json de tmdb
-            //si j'ai la catégorie filter sur la catégorie
-            //sinon filtrer avec le nom
-            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}/${inputFilm}`);
-            console.log(seriesCategories.data);
+            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
             setSearchSeries(seriesCategories.data);
         } catch (err) {
             console.log(err);
@@ -85,11 +77,9 @@ export default function AddPage() {
     };
 
     const validateMovie = async (rows) => {
-        console.log(rows);
         try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
-                console.log(rows[i].original.id);
                 let id_movie = rows[i].original.id;
                 await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
                     id_movie
@@ -103,11 +93,9 @@ export default function AddPage() {
     };
 
     const validateSerie = async (rows) => {
-        console.log(rows);
         try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
-                console.log(rows[i].original.id);
                 let id_serie = rows[i].original.id;
                 await axios.post(`http://192.168.1.73:5000/seriefilm/serie/insertSerie`, {
                     id_serie
@@ -133,10 +121,6 @@ export default function AddPage() {
                         <div className="card-body">
                             <h2 className="title">Cherchez des films pour les ajouter</h2>
                             <Form onSubmit={searchFilm}>
-                                {/*<Form.Group className="mb-3" controlId="formMovieTitle">*/}
-                                {/*    <Form.Control placeholder="titre du film" onChange={(event) => setInputFilm(event.target.value)} value={inputFilm} />*/}
-                                {/*</Form.Group>*/}
-                                <h3>ou</h3>
                                 <Form.Select onChange={(event) => setSelectedCategFilm(event.target.value)}>
                                     <option>Catégories</option>
                                     {categFilm.map(categ => (
@@ -156,10 +140,6 @@ export default function AddPage() {
                         <div className="card-body">
                             <h2 className="title">Cherchez des séries pour les ajouter</h2>
                             <Form onSubmit={searchSerie}>
-                                {/*<Form.Group className="mb-3" controlId="formMovieTitle">*/}
-                                {/*    <Form.Control placeholder="titre de la série" value="" />*/}
-                                {/*</Form.Group>*/}
-                                <h3>ou</h3>
                                 <Form.Select onChange={(event) => setSelectedCategSerie(event.target.value)}>
                                     <option>Catégories</option>
                                     {categSerie.map(categ => (
@@ -175,8 +155,8 @@ export default function AddPage() {
                     </div>
                 </div>
             </div>
-            {searchFilms && <TableSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
-            {searchSeries && <TableSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
+            {searchFilms && <Table films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
+            {searchSeries && <Table films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
         </div>
     )
 }

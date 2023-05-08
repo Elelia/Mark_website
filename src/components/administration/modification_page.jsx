@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext  } from 'react';
-import {UserContext} from "../utils/userContext";
+import React, { useState, useEffect  } from 'react';
 import axios from "axios";
 import './administration_page.css';
-import Button from "react-bootstrap/Button";
-import Table from 'react-bootstrap/Table';
 import {useNavigate} from "react-router-dom";
-import TableAllSerieFilm from "./table_all_seriefilm";
-import {Form} from "react-bootstrap";
+import Table from "./table_modif_seriefilm.jsx";
+import {Form, Button} from "react-bootstrap";
+import {BsArrowLeftCircle} from "react-icons/bs";
 
 export default function ModificationPage() {
-    //const user = useContext(UserContext);
     const navigate = useNavigate();
     const [categFilm, setCategFilm] = useState([]);
     const [categSerie, setCategSerie] = useState([]);
@@ -26,16 +23,24 @@ export default function ModificationPage() {
                 accessor: 'nom',
             },
             {
-                Header: 'Genre',
-                accessor: 'cat_name',
-            },
-            {
-                Header: 'Résumé',
-                accessor: 'resume',
+                Header: 'Âge minimum',
+                accessor: 'age_min',
             },
             {
                 Header: 'Date de sortie',
                 accessor: 'date_sortie',
+            },
+            {
+                Header: 'Vignette',
+                accessor: 'url_vignette',
+            },
+            {
+                Header: 'Affiche',
+                accessor: 'url_affiche',
+            },
+            {
+                Header: 'Trailer',
+                accessor: 'trailer',
             }
         ],
         []
@@ -60,9 +65,7 @@ export default function ModificationPage() {
     const searchFilm = async (event) => {
         event.preventDefault();
         try {
-            //changer la requête pour qu'elle utilise le fichier json de tmdb
-            //si j'ai la catégorie filter sur la catégorie
-            //sinon filtrer avec le nom
+            //filter avec le nom aussi
             const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
             console.log(filmsCategories.data);
             setSearchFilms(filmsCategories.data);
@@ -76,9 +79,6 @@ export default function ModificationPage() {
         event.preventDefault();
         console.log(selectedCategSerie);
         try {
-            //changer la requête pour qu'elle utilise le fichier json de tmdb
-            //si j'ai la catégorie filter sur la catégorie
-            //sinon filtrer avec le nom
             const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
             console.log(seriesCategories.data);
             setSearchSeries(seriesCategories.data);
@@ -89,26 +89,36 @@ export default function ModificationPage() {
     };
 
     const validateMovie = async (rows) => {
-        console.log(rows);
         try {
             for(let i=0; rows.length > i; i++) {
-                //insérer les valeurs en base
-                console.log(rows[i].original.id);
-                let id_movie = rows[i].original.id;
-                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
-                    id_movie
+                const getdate = new Date(rows[i].date_sortie);
+                const date = getdate.toISOString().slice(0,10);
+                let id_movie = rows[i].id;
+                let nom = rows[i].nom;
+                let age_min = rows[i].age_min;
+                let vignette = rows[i].url_vignette;
+                let affiche = rows[i].url_affiche;
+                let trailer = rows[i].trailer;
+                await axios.put(`http://192.168.1.73:5000/seriefilm/film/update`, {
+                    id_movie,
+                    nom,
+                    age_min,
+                    date,
+                    vignette,
+                    affiche,
+                    trailer
                 });
             }
-            alert("Enregistrement en base réussi.");
+            alert("Modifications réussies.");
         } catch(err) {
             console.log(err);
-            alert("L'enregistrement n'a pas pu être effectué.");
+            alert("Les modifications n'ont pas pu être enregistrées.");
         }
     };
 
     const validateSerie = async (rows) => {
         console.log(rows);
-        try {
+        /*try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
@@ -121,13 +131,53 @@ export default function ModificationPage() {
         } catch(err) {
             console.log(err);
             alert("L'enregistrement n'a pas pu être effectué.");
-        }
+        }*/
+    };
+
+    const deleteMovie = async (rows) => {
+        console.log(rows);
+        /*try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_movie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                    id_movie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }*/
+    };
+
+    const deleteSerie = async (rows) => {
+        console.log(rows);
+        /*try {
+            for(let i=0; rows.length > i; i++) {
+                //insérer les valeurs en base
+                console.log(rows[i].original.id);
+                let id_movie = rows[i].original.id;
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                    id_movie
+                });
+            }
+            alert("Enregistrement en base réussi.");
+        } catch(err) {
+            console.log(err);
+            alert("L'enregistrement n'a pas pu être effectué.");
+        }*/
+    };
+
+    const goBack = () => {
+        navigate(-1);
     };
 
     return(
         <div className="container">
             <div className="row">
-                <div className="col-2"></div>
+                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircle size={32}/></span></div>
                 <div className="col-4">
                     <div className="card">
                         <div className="card-body">
@@ -179,8 +229,8 @@ export default function ModificationPage() {
                     </div>
                 </div>
             </div>
-            {searchFilms && <TableAllSerieFilm films={searchFilms} columns={columns} onSelectedRows={validateMovie} /> }
-            {searchSeries && <TableAllSerieFilm films={searchSeries} columns={columns} onSelectedRows={validateSerie} /> }
+            {searchFilms && <Table films={searchFilms} columns={columns} onSaveChanges={validateMovie} onSelectedRows={deleteMovie} /> }
+            {searchSeries && <Table films={searchSeries} columns={columns} onSaveChanges={validateSerie} onSelectedRows={deleteSerie} /> }
         </div>
     )
 }
