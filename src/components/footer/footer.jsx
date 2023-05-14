@@ -5,8 +5,10 @@ import {
     Row,
     Column,
     FooterLink,
+    FooterText,
     Heading,
 } from "./footer_style";
+import { BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
 
 export default function Footer(){
     return (
@@ -24,30 +26,24 @@ export default function Footer(){
                     </Column>
                     <Column>
                         <Heading>Nos coordonnées</Heading>
-                        <FooterLink>projetmarkensitech@gmail.com</FooterLink>
+                        <FooterText>projetmarkensitech@gmail.com</FooterText>
                     </Column>
                     <Column>
                         <Heading>Réseaux sociaux</Heading>
                         <FooterLink href="#">
-                            <i className="fab fa-facebook-f">
-                <span style={{ marginLeft: "10px" }}>
-                  Facebook
-                </span>
-                            </i>
+                            <span style={{ marginLeft: "10px" }}>
+                              <BsFacebook/>
+                            </span>
                         </FooterLink>
                         <FooterLink href="#">
-                            <i className="fab fa-instagram">
-                <span style={{ marginLeft: "10px" }}>
-                  Instagram
-                </span>
-                            </i>
+                            <span style={{ marginLeft: "10px" }}>
+                              <BsTwitter/>
+                            </span>
                         </FooterLink>
                         <FooterLink href="#">
-                            <i className="fab fa-twitter">
-                <span style={{ marginLeft: "10px" }}>
-                  Twitter
-                </span>
-                            </i>
+                            <span style={{ marginLeft: "10px" }}>
+                              <BsInstagram/>
+                            </span>
                         </FooterLink>
                     </Column>
                 </Row>

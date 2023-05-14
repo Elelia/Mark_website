@@ -30,6 +30,13 @@ export const Row = styled.div`
   grid-gap: 20px;
 `;
 
+export const FooterText = styled.div`
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 13px;
+  text-decoration: none;
+`;
+
 export const FooterLink = styled.a`
   color: #fff;
   margin-bottom: 20px;
@@ -37,7 +44,7 @@ export const FooterLink = styled.a`
   text-decoration: none;
    
   &:hover {
-      color: green;
+      color: black;
       transition: 200ms ease-in;
   }
 `;

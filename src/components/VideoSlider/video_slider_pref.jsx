@@ -55,8 +55,6 @@ export default function VideoSliderPref(props) {
 
     return (
         <div>
-            <h1>Notre sélection pour vous</h1>
-            <br/>
             <Slider {...settings}>
                 {props.data.map(film => (
                     <div key={film.id} onClick={() => openModal(film)}>

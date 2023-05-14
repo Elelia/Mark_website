@@ -12,6 +12,8 @@ export default function FilmHome() {
     const [categoriesFilm, setCategoriesFilm] = useState([]);
     const [videosFilm, setVideosFilm] = useState([]);
     const [preferenceFilms, setPreferenceFilms] = useState([]);
+    const [filmsVus, setFilmsVus] = useState([]);
+    const [filmsLast, setFilmsLast] = useState([]);
 
     useEffect(() => {
         const fetchDataFilm = async () => {
@@ -32,8 +34,27 @@ export default function FilmHome() {
             try {
                 //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
                 const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
-                console.log(preferenceResponse.data);
                 setPreferenceFilms(preferenceResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const fetchMostSeen = async () => {
+            try {
+                //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                const mostSeenResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/most_seen');
+                setFilmsVus(mostSeenResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const fetchLastMovie = async () => {
+            try {
+                //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                const lastMovieResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/last');
+                setFilmsLast(lastMovieResponse.data);
             } catch (error) {
                 console.log(error);
             }
@@ -41,11 +62,25 @@ export default function FilmHome() {
 
         fetchDataFilm();
         fetchPreference();
+        fetchMostSeen();
+        fetchLastMovie();
     }, []);
 
     return(
         <div className="container">
-            {preferenceFilms && <VideoSliderPref data={preferenceFilms}/> }
+            {preferenceFilms &&
+                <div>
+                    <h1>Notre sélection pour vous</h1>
+                    <br/>
+                    <VideoSliderPref data={preferenceFilms}/>
+                    <h1>Les plus populaires</h1>
+                    <br/>
+                    <VideoSliderPref data={filmsVus}/>
+                    <h1>Les nouveautés</h1>
+                    <br/>
+                    <VideoSliderPref data={filmsLast}/>
+                </div>
+            }
             <h1>Les films</h1>
             <br/>
             <VideoSlider videos={videosFilm} categories={categoriesFilm}/>

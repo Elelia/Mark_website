@@ -69,21 +69,21 @@ export default function ResumePage({isOpen, closeModal, video}) {
             alert("Un problème est survenu. Veuillez réessayer ultérieurement.");
         }
         getAvis();
-    }
+    };
 
     const showVideo = async (e) => {
         e.preventDefault();
         try {
             setVideoModalIsOpen(true);
             const id_episode = null;
-            await axios.post('http://192.168.1.73:5000/seriefilm/film/saw', {
+            await axios.post('http://192.168.1.72:5000/seriefilm/film/saw', {
                 id_film,
                 id_episode
             })
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     return (
         <Modal
