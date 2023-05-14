@@ -4,7 +4,7 @@ import './administration_page.css';
 import {useNavigate} from "react-router-dom";
 import Table from "./table_modif_seriefilm.jsx";
 import {Form, Button} from "react-bootstrap";
-import {BsArrowLeftCircle} from "react-icons/bs";
+import {BsArrowLeftCircleFill} from "react-icons/bs";
 
 export default function ModificationPage() {
     const navigate = useNavigate();
@@ -177,7 +177,7 @@ export default function ModificationPage() {
     return(
         <div className="container">
             <div className="row">
-                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircle size={32}/></span></div>
+                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircleFill size={32}/></span></div>
                 <div className="col-4">
                     <div className="card">
                         <div className="card-body">

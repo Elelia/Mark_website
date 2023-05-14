@@ -15,7 +15,9 @@ export default function Contact() {
     const sendForm = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://192.168.1.73:5000/users/contact`, {
+            console.log(mail);
+            console.log(message);
+            await axios.post(`http://192.168.1.72:5000/users/contact`, {
                 mail,
                 message
             });

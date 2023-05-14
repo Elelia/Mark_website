@@ -14,21 +14,20 @@ export default function Footer(){
             <Container>
                 <Row>
                     <Column>
-                        <Heading>About Us</Heading>
-                        <FooterLink href="#">Aim</FooterLink>
-                        <FooterLink href="#">Vision</FooterLink>
-                        <FooterLink href="#">Testimonials</FooterLink>
+                        <Heading>A propos</Heading>
+                        <FooterLink href="#">Qu'est-ce que Mark ?</FooterLink>
+                        <FooterLink href="#">Les créateurs</FooterLink>
                     </Column>
                     <Column>
                         <Heading>Sécurité</Heading>
                         <FooterLink href="#">Writing</FooterLink>
                     </Column>
                     <Column>
-                        <Heading>Contact Us</Heading>
-                        <FooterLink href="#">Uttar Pradesh</FooterLink>
+                        <Heading>Nos coordonnées</Heading>
+                        <FooterLink>projetmarkensitech@gmail.com</FooterLink>
                     </Column>
                     <Column>
-                        <Heading>Social Media</Heading>
+                        <Heading>Réseaux sociaux</Heading>
                         <FooterLink href="#">
                             <i className="fab fa-facebook-f">
                 <span style={{ marginLeft: "10px" }}>

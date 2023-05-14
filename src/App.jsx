@@ -16,6 +16,8 @@ import PrivateRoutes from "./components/utils/PrivateRoutes";
 import Footer from "./components/footer/footer";
 
 function App() {
+    //toutes les routes du site sont placés ici
+    //De cette façon, n'importe quel composant de l'application peut y avoir accès
 
     return (
           <UserProvider>
@@ -35,8 +37,8 @@ function App() {
                       </Route>
                       <Route path="/deconnexion" element={<Deconnexion/>} />
                   </Routes>
+                  <Footer/>
               </BrowserRouter>
-              {/*<Footer/>*/}
           </UserProvider>
     );
 }

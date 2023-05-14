@@ -17,11 +17,11 @@ export default function FilmHome() {
         const fetchDataFilm = async () => {
             try {
                 //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                const categoriesResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesResponse.data);
 
                 //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film');
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film');
+                const videosResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film');
                 setVideosFilm(videosResponse.data);
             } catch (error) {
                 console.log(error);
@@ -31,7 +31,8 @@ export default function FilmHome() {
         const fetchPreference = async () => {
             try {
                 //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
-                const preferenceResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/bypref');
+                const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
+                console.log(preferenceResponse.data);
                 setPreferenceFilms(preferenceResponse.data);
             } catch (error) {
                 console.log(error);

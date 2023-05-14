@@ -5,7 +5,7 @@ import './administration_page.css';
 import { Button, Form } from "react-bootstrap";
 import Table from "./table_add_seriefilm.jsx";
 import {useNavigate} from "react-router-dom";
-import {BsArrowLeftCircle} from "react-icons/bs";
+import {BsArrowLeftCircleFill} from "react-icons/bs";
 
 export default function AddPage() {
     const navigate = useNavigate();
@@ -115,7 +115,7 @@ export default function AddPage() {
     return(
         <div className="container">
             <div className="row">
-                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircle size={32}/></span></div>
+                <div className="col-2"><span onClick={goBack}><BsArrowLeftCircleFill size={32}/></span></div>
                 <div className="col-4">
                     <div className="card">
                         <div className="card-body">
