@@ -52,7 +52,7 @@ export default function SerieHome() {
             {preferenceFilms && <VideoSliderPref data={preferenceFilms}/> }
             <h1>Les séries</h1>
             <br/>
-            <VideoSlider videos={videosSerie} categories={categoriesSerie}/>
+            <VideoSlider videos={videosSerie} categories={categoriesSerie} serie={true}/>
         </div>
     )
 }

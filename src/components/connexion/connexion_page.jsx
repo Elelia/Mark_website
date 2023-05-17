@@ -66,7 +66,7 @@ export default function Connexion() {
                     const userByMail = await axios.get(`http://192.168.1.72:5000/users/user/mail/${mail}`);
                     console.log(userByMail.data.message);
                     if (userByMail.data.message === "no user with this mail") {
-                        //là on insert le user dans la base de données
+                        //insert le user dans la base de données
                         //await axios.post(`https://mark-api.vercel.app/users/create`, {
                         await axios.post(`http://192.168.1.72:5000/users/create`, {
                             nom,
@@ -190,19 +190,19 @@ export default function Connexion() {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="formEmailSign">
-                            <Form.Label>Votre adresse mail</Form.Label>
+                            <Form.Label>Votre adresse mail</Form.Label><span style={{color: "red"}}>*</span>
                             <Form.Control type="email" placeholder="name@example.com" autoFocus value={emailSign} onChange={(e) => setEmailSign(e.target.value)}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formLastNameSign">
-                            <Form.Label>Votre nom</Form.Label>
+                            <Form.Label>Votre nom</Form.Label><span style={{color: "red"}}>*</span>
                             <Form.Control type="text" placeholder="Nom" value={lastName} onChange={(e) => setlastName(e.target.value)} />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formfirstNameSign">
-                            <Form.Label>Votre prénom</Form.Label>
+                        <Form.Group className="mb-3" controlId="formFirstNameSign">
+                            <Form.Label>Votre prénom</Form.Label><span style={{color: "red"}}>*</span>
                             <Form.Control type="text" placeholder="Prénom" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formPasswordSign">
-                            <Form.Label>Votre mot de passe</Form.Label>
+                            <Form.Label>Votre mot de passe</Form.Label><span style={{color: "red"}}>*</span>
                             <Form.Control type="password" placeholder="Mot de passe" value={passwordSign} onChange={(e) => setPasswordSign(e.target.value)} />
                         </Form.Group>
                         <ProgressBar animated now={45} />

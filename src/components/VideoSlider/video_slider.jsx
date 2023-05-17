@@ -4,11 +4,13 @@ import React, { Component, useState } from "react";
 //import '../../../node_modules/slick-carousel/slick//slick-theme.css';
 import './video_slider.css';
 import ResumePage from '../resume/resume_page';
+import ResumePageSerie from '../resume/resume_page_serie';
 
 
 export default function VideoSlider(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
+    console.log(props.serie);
 
     const openModal = (video) => {
         setSelectedVideo(video);
@@ -76,13 +78,21 @@ export default function VideoSlider(props) {
                     </div>
                 );
             })}
-            {selectedVideo && (
+            {selectedVideo && props.serie ? (
+                <ResumePageSerie
+                    isOpen={modalIsOpen}
+                    closeModal={closeModal}
+                    video={selectedVideo}
+                />
+
+            ) :
+            selectedVideo ? (
                 <ResumePage
                     isOpen={modalIsOpen}
                     closeModal={closeModal}
                     video={selectedVideo}
                 />
-            )}
+            ) : null}
         </div>
     );
 }

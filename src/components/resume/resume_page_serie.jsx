@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -6,15 +6,19 @@ import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";
 import './resume_page.css';
+import {Accordion} from "react-bootstrap";
+import AccordionItem from "react-bootstrap/AccordionItem";
+import TableSerieFilm from "../administration/table_add_seriefilm";
 
-export default function ResumePage({isOpen, closeModal, video}) {
-    //const user = useContext(UserContext);
+export default function ResumePageVideo({isOpen, closeModal, video}) {
     const [avis, setAvis] = useState([]);
     const [url, setUrl] = useState(null);
     const [videoModalIsOpen, setVideoModalIsOpen] = useState(false);
     const [comment, setComment] = useState('');
     const [note, setNote] = useState('');
     const [formattedDate, setFormattedDate] = useState('');
+    const [saison, setSaison] = useState([]);
+    const [episode, setEpisode] = useState([]);
     const seriefilmId = video.id;
     const id_film = video.id_film;
     const videoId = video.id_video;
@@ -41,12 +45,24 @@ export default function ResumePage({isOpen, closeModal, video}) {
             });
     };
 
+    const getSaison = async () => {
+        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/${seriefilmId}`)
+            .then(function (response) {
+                setSaison(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
         const date = new Date(video.date_sortie);
         setFormattedDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
 
         getAvis();
         getUrlVideo();
+        getSaison();
     }, []);
 
     const handleSubmit = async (e) => {
@@ -77,6 +93,22 @@ export default function ResumePage({isOpen, closeModal, video}) {
                 id_film,
                 id_episode
             })
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getEpisode = async (event, id_saison) => {
+        event.preventDefault();
+        console.log({id_saison});
+        try {
+            await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/episode/${id_saison}`)
+                .then(function (response) {
+                    setEpisode(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         } catch (err) {
             console.log(err);
         }
@@ -118,6 +150,20 @@ export default function ResumePage({isOpen, closeModal, video}) {
                         <h2>{video.nom}</h2>
                         <p>Synopsis : <br/>{video.resume}</p>
                         <p>Date de sortie : {formattedDate}</p>
+                        <Accordion>
+                            {saison.map(saison => (
+                                <AccordionItem eventKey={saison.id} onClick={(event) => getEpisode(event, saison.id)}>
+                                    <Accordion.Header>{saison.nom}</Accordion.Header>
+                                    {episode.map(ep => (
+                                        <Accordion.Body>
+                                            <p>{ep.nom}</p>
+                                            <p>{ep.resume}</p>
+                                            <p>---------------------</p>
+                                        </Accordion.Body>
+                                    ))}
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
                         <p>Lancer le film <span onClick={showVideo}><BsFillPlayCircleFill size={32}/></span></p>
                     </div>
                     <div className="col-4">
