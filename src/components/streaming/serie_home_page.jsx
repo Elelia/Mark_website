@@ -49,7 +49,13 @@ export default function SerieHome() {
 
     return(
         <div className="container">
-            {preferenceFilms && <VideoSliderPref data={preferenceFilms}/> }
+            {preferenceFilms &&
+                <div>
+                    <h1>Notre sélection pour vous</h1>
+                    <br/>
+                    <VideoSliderPref data={preferenceFilms}/>
+                </div>
+            }
             <h1>Les séries</h1>
             <br/>
             <VideoSlider videos={videosSerie} categories={categoriesSerie} serie={true}/>
