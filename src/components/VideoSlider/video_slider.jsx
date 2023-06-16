@@ -21,7 +21,7 @@ export default function VideoSlider(props) {
         setModalIsOpen(false);
     };
 
-    console.log(props.serie);
+    console.log('les props :' + props);
 
     const settings = {
         className: "center",
