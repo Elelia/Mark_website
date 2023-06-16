@@ -42,7 +42,7 @@ export default function FilmHome() {
 
         const fetchMostSeen = async () => {
             try {
-                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                const mostSeenResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
                 //const mostSeenResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/most_seen');
                 setFilmsVus(mostSeenResponse.data);
             } catch (error) {
@@ -52,7 +52,7 @@ export default function FilmHome() {
 
         const fetchLastMovie = async () => {
             try {
-                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                const lastMovieResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
                 //const lastMovieResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/last');
                 setFilmsLast(lastMovieResponse.data);
             } catch (error) {
