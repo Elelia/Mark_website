@@ -33,18 +33,18 @@ export default function SerieHome() {
         };
 
         //récupère une sélection de 20 séries selon les préférences de l'utilisateur
-        const fetchPreference = async () => {
-            try {
-                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
-                //const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
-                setPreferenceFilms(preferenceResponse.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+        // const fetchPreference = async () => {
+        //     try {
+        //         const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+        //         //const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
+        //         setPreferenceFilms(preferenceResponse.data);
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // };
 
         fetchDataSerie();
-        fetchPreference();
+        //fetchPreference();
     }, []);
 
     return(
