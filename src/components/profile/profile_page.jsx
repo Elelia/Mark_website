@@ -1,25 +1,21 @@
-import React, { useState, useEffect, useContext  } from 'react';
-import {UserContext} from "../utils/userContext";
+import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './profile_page.css';
-import { Container, Row, Col, Card, Button, Form, Modal, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 
 
 export default function Profile() {
     const navigate = useNavigate();
-    //const user = useContext(UserContext);
     const [thisUser, setThisUser] = useState({
         mail: null,
         nom: null,
         prenom: null
     });
-    //const [oldMdp, setOldMdp] = useState('');
     const [newPassword, setNewPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [hide, setHide] = useState(false);
     const [hideValidate, setHideValidate] = useState(false);
-    //const [show, setShow] = useState(false);
 
     const toggleHide = () => {
         setHide(!hide);
@@ -28,14 +24,6 @@ export default function Profile() {
     const toggleHidePassword = () => {
         setHideValidate(!hideValidate);
     };
-
-    // const handleModal = () => {
-    //     setShow(true);
-    // };
-    //
-    // const handleCloseModal = () => {
-    //     setShow(false);
-    // };
 
     const goToPreference = () => {
         navigate('/preference');
@@ -51,7 +39,7 @@ export default function Profile() {
                 const nom = thisUser.nom;
                 const prenom = thisUser.prenom;
                 const mail = thisUser.mail;
-                await axios.put('http://192.168.1.73:5000/users/updateUser', {
+                await axios.put('https://mark-api.vercel.app/users/updateUser', {
                     nom,
                     prenom,
                     mail,
@@ -69,8 +57,8 @@ export default function Profile() {
     useEffect(()  => {
         const getInfoUser = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
-                const res = await axios.get(`http://192.168.1.73:5000/users/user/`);
+                const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
+                //const res = await axios.get(`http://192.168.1.72:5000/users/user/`);
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
@@ -113,10 +101,6 @@ export default function Profile() {
                                 </Form.Group>
                                 <Button onClick={toggleHide}>Changer votre mot de passe</Button>
                                 <div className="divPassword" style={{ display: hide ? "block" : "none" }}>
-                                    {/*<Form.Group className="mb-3" controlId="formBasicEmail">*/}
-                                    {/*    <Form.Label>Votre ancien mot de passe</Form.Label>*/}
-                                    {/*    <Form.Control type="password" placeholder="Ancien mot de passe" onChange={(e) => setOldMdp(e.target.value)}/>*/}
-                                    {/*</Form.Group>*/}
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Votre nouveau mot de passe</Form.Label>
                                         <Form.Control type="password" placeholder="Nouveau mot de passe" onChange={(e) => setNewPassword(e.target.value)} />
@@ -136,28 +120,6 @@ export default function Profile() {
                     </Card>
                 </Col>
             </Row>
-            {/*<Modal show={show} onHide={handleCloseModal}>*/}
-            {/*    <Modal.Body>*/}
-            {/*        <h2>Saisissez votre mot de passe actuel pour valider vos changements</h2>*/}
-            {/*        <InputGroup className="mb-3">*/}
-            {/*            <Form.Control*/}
-            {/*                placeholder="mot de passe actuel"*/}
-            {/*                aria-label="verifyPassword"*/}
-            {/*                aria-describedby="basic-addon1"*/}
-            {/*                type="password"*/}
-            {/*                onChange={(e) => setVerifyPassword(e.target.value)}*/}
-            {/*            />*/}
-            {/*        </InputGroup>*/}
-            {/*    </Modal.Body>*/}
-            {/*    <Modal.Footer>*/}
-            {/*        <Button variant="secondary" onClick={handleCloseModal}>*/}
-            {/*            Fermer*/}
-            {/*        </Button>*/}
-            {/*        <Button variant="primary" onClick={validateModification}>*/}
-            {/*            Valider*/}
-            {/*        </Button>*/}
-            {/*    </Modal.Footer>*/}
-            {/*</Modal>*/}
         </Container>
     )
 }

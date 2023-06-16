@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTable, useRowSelect } from 'react-table';
 import BTable from 'react-bootstrap/Table';
@@ -54,7 +54,6 @@ export default function TableSerieFilm(props) {
     );
 
     const validate = () => {
-        //console.log(selectedFlatRows);
         onSelectedRows(selectedFlatRows);
     };
 
@@ -72,7 +71,7 @@ export default function TableSerieFilm(props) {
                     </tr>
                 ))}
                 </thead>
-                <tbody>
+                <tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                     prepareRow(row)
                     return (

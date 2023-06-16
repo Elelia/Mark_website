@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Connexion from "./components/connexion/connexion_page";
 import Film from "./components/streaming/film_home_page";
@@ -16,8 +16,6 @@ import PrivateRoutes from "./components/utils/PrivateRoutes";
 import Footer from "./components/footer/footer";
 
 function App() {
-    //toutes les routes du site sont placés ici
-    //De cette façon, n'importe quel composant de l'application peut y avoir accès
 
     return (
           <UserProvider>
@@ -25,9 +23,9 @@ function App() {
                   <Navbar/>
                   <Routes>
                       <Route exact path="/" element={<Connexion/>} />
-                      <Route path="/film" element={<Film/>} />
-                      <Route path="/serie" element={<Serie/>} />
                       <Route element={<PrivateRoutes/>}>
+                          <Route path="/film" element={<Film/>} />
+                          <Route path="/serie" element={<Serie/>} />
                           <Route path="/contact" element={<Contact/>} />
                           <Route path="/profile" element={<Profile/>} />
                           <Route path="/administration" element={<Administration/>} />

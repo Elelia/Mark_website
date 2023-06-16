@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext  } from 'react';
-import {UserContext} from "../utils/userContext";
+import React, { useState, useEffect  } from 'react';
 import axios from "axios";
-import { Button, Accordion } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import TableSerieFilm from "../administration/table_add_seriefilm";
 
 export default function Preference() {
@@ -31,12 +30,12 @@ export default function Preference() {
 
         const getCategories = async () => {
             try {
-                //const categoriesFilms = await axios.get('https:///mark-api.vercel.app/seriefilm/film/categories');
-                const categoriesFilms = await axios.get('http://192.168.1.72:5000/seriefilm/film/categories');
+                const categoriesFilms = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
+                //const categoriesFilms = await axios.get('http://192.168.1.72:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesFilms.data);
 
-                //const categoriesSeries = await axios.get('https:///mark-api.vercel.app/seriefilm/serie/categories');
-                const categoriesSeries = await axios.get('http://192.168.1.72:5000/seriefilm/serie/categories');
+                const categoriesSeries = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
+                //const categoriesSeries = await axios.get('http://192.168.1.72:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesSeries.data);
             } catch (error) {
                 console.log(error);
@@ -45,8 +44,8 @@ export default function Preference() {
 
         const getInfoUser = async () => {
             try {
-                //const res = await axios.get(`https:///mark-api.vercel.app/users/user/`);
-                const res = await axios.get(`http://192.168.1.72:5000/users/user/`);
+                const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
+                //const res = await axios.get(`http://192.168.1.72:5000/users/user/`);
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
@@ -59,15 +58,12 @@ export default function Preference() {
     }, []);
 
     const validateCategorie = async (rows) => {
-        console.log(rows);
         try {
             let id_compte = thisUser.id;
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
-                console.log(rows[i].original.id);
                 let id_categorie = rows[i].original.id;
-                //await axios.post(`https:///mark-api.vercel.app/users/prefcat`, {
-                await axios.post(`http://192.168.1.72:5000/users/prefcat`, {
+                await axios.post(`https://mark-api.vercel.app/users/prefcat`, {
                     id_compte,
                     id_categorie
                 });

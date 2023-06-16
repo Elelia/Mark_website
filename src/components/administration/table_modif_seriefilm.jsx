@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useRowSelect, useTable} from 'react-table';
 import BTable from 'react-bootstrap/Table';
-import {InputGroup, FormControl, Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import './table.css';
 
 export default function TableAllSerieFilm(props) {
@@ -54,7 +54,6 @@ export default function TableAllSerieFilm(props) {
     };
 
     const handleDelete = () => {
-        console.log(selectedFlatRows);
         onSelectedRows(selectedFlatRows);
     };
 

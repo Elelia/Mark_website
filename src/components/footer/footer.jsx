@@ -22,7 +22,7 @@ export default function Footer(){
                     </Column>
                     <Column>
                         <Heading>Sécurité</Heading>
-                        <FooterLink href="#">Writing</FooterLink>
+                        <FooterLink href="#">L'utilisation de vos données</FooterLink>
                     </Column>
                     <Column>
                         <Heading>Nos coordonnées</Heading>

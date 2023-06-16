@@ -24,8 +24,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
     const videoId = video.id_video;
 
     const getAvis = async () => {
-        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
-        await axios.get(`http://192.168.1.72:5000/seriefilm/avis/${seriefilmId}`)
+        await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        //await axios.get(`http://192.168.1.72:5000/seriefilm/avis/${seriefilmId}`)
             .then(function (response) {
                 setAvis(response.data);
             })
@@ -34,7 +34,7 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
             });
     };
 
-    const getUrlVideo = async () => {
+    /*const getUrlVideo = async () => {
         //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
         await axios.get(`http://192.168.1.72:5000/seriefilm/video/url/${videoId}`)
             .then(function (response) {
@@ -43,11 +43,11 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
             .catch(function (error) {
                 console.log(error);
             });
-    };
+    };*/
 
     const getSaison = async () => {
-        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
-        await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/${seriefilmId}`)
+        await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        //await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/${seriefilmId}`)
             .then(function (response) {
                 setSaison(response.data);
             })
@@ -57,11 +57,11 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
     };
 
     useEffect(() => {
-        const date = new Date(video.date_sortie);
-        setFormattedDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+        /*const date = new Date(video.date_sortie);
+        setFormattedDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);*/
 
         getAvis();
-        getUrlVideo();
+        //getUrlVideo();
         getSaison();
     }, []);
 
@@ -69,8 +69,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
         e.preventDefault();
         const date = new Date().toLocaleString();
         try {
-            //await axios.post('https:///mark-api.vercel.app/seriefilm/avis/insert', {
-            await axios.post('http://192.168.1.72:5000/seriefilm/avis/insert', {
+            await axios.post('https://mark-api.vercel.app/seriefilm/avis/insert', {
+            //await axios.post('http://192.168.1.72:5000/seriefilm/avis/insert', {
                 seriefilmId,
                 comment,
                 note,
@@ -84,12 +84,13 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
         getAvis();
     };
 
-    const showVideo = async (e) => {
-        e.preventDefault();
+    const showVideo = async (event, url, id_episode) => {
+        event.preventDefault();
         try {
             setVideoModalIsOpen(true);
-            const id_episode = null;
-            await axios.post('http://192.168.1.72:5000/seriefilm/film/saw', {
+            setUrl(url);
+            const id_film = null;
+            await axios.post('https://mark-api.vercel.app/seriefilm/saw', {
                 id_film,
                 id_episode
             })
@@ -100,9 +101,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
 
     const getEpisode = async (event, id_saison) => {
         event.preventDefault();
-        console.log({id_saison});
         try {
-            await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/episode/${id_saison}`)
+            await axios.get(`https://mark-api.vercel.app/seriefilm/serie/saison/episode/${id_saison}`)
                 .then(function (response) {
                     setEpisode(response.data);
                 })
@@ -149,30 +149,30 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                     <div className="col-4">
                         <h2>{video.nom}</h2>
                         <p>Synopsis : <br/>{video.resume}</p>
-                        <p>Date de sortie : {formattedDate}</p>
                         <Accordion>
                             {saison.map(saison => (
                                 <AccordionItem eventKey={saison.id} onClick={(event) => getEpisode(event, saison.id)}>
-                                    <Accordion.Header>{saison.nom}</Accordion.Header>
+                                    <Accordion.Header>{saison.nom} - {new Date(saison.date_sortie).toLocaleDateString('fr-FR')}</Accordion.Header>
                                     {episode.map(ep => (
                                         <Accordion.Body>
-                                            <p>{ep.nom}</p>
+                                            <h5>{ep.nom}</h5>
                                             <p>{ep.resume}</p>
+                                            <p>Voir l'épisode <span onClick={(event) =>
+                                                showVideo(event, ep.url, ep.id)}><BsFillPlayCircleFill size={32}/></span></p>
                                             <p>---------------------</p>
                                         </Accordion.Body>
                                     ))}
                                 </AccordionItem>
                             ))}
                         </Accordion>
-                        <p>Lancer le film <span onClick={showVideo}><BsFillPlayCircleFill size={32}/></span></p>
                     </div>
                     <div className="col-4">
                         <div>
                             {avis.length > 0 ? (
                                 avis.map(avis => (
                                     <div key={avis.id}>
-                                        <h2>{avis.prenom}</h2>
-                                        <p>{avis.note} - {avis.jour}</p>
+                                        <h3>{avis.prenom} {avis.nom}</h3>
+                                        <p>{avis.note}/20 - {new Date(avis.jour).toLocaleDateString('fr-FR')}</p>
                                         <p>{avis.commentaire}</p>
                                         <br/>
                                     </div>

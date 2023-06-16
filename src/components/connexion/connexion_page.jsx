@@ -62,13 +62,13 @@ export default function Connexion() {
                         })
                         .catch((err) => console.log(err));
 
-                    //const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${mail}`);
-                    const userByMail = await axios.get(`http://192.168.1.72:5000/users/user/mail/${mail}`);
+                    const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${mail}`);
+                    //const userByMail = await axios.get(`http://192.168.1.72:5000/users/user/mail/${mail}`);
                     console.log(userByMail.data.message);
                     if (userByMail.data.message === "no user with this mail") {
                         //insert le user dans la base de données
-                        //await axios.post(`https://mark-api.vercel.app/users/create`, {
-                        await axios.post(`http://192.168.1.72:5000/users/create`, {
+                        await axios.post(`https://mark-api.vercel.app/users/create`, {
+                        //await axios.post(`http://192.168.1.72:5000/users/create`, {
                             nom,
                             prenom,
                             mail,
@@ -76,6 +76,11 @@ export default function Connexion() {
                             mdp
                         });
                     } else {
+                        const res = await axios.post(`https://mark-api.vercel.app/users/auth/google`, {
+                            mail
+                        });
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                        localStorage.setItem('token', res.data.token);
                         setUser(userByMail.data.user[0]);
                         login(userByMail.data.user[0].id, userByMail.data.user[0].admin);
                     }
@@ -95,8 +100,8 @@ export default function Connexion() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://192.168.1.72:5000/users/auth/login', {
-            //const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
+            //const res = await axios.post('http://192.168.1.72:5000/users/auth/login', {
+            const res = await axios.post('https://mark-api.vercel.app/users/auth/login', {
                 email,
                 password
             }, {
@@ -125,11 +130,11 @@ export default function Connexion() {
             let mdp = passwordSign;
             let admin = false;
             try {
-                //const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${emailSign}`);
-                const userByMail = await axios.get(`http://192.168.1.72:5000/users/user/mail/${emailSign}`);
+                const userByMail = await axios.get(`https://mark-api.vercel.app/users/user/mail/${emailSign}`);
+                //const userByMail = await axios.get(`http://192.168.1.72:5000/users/user/mail/${emailSign}`);
                 if (userByMail.data.message === "no user with this mail") {
-                    //await axios.post(`https://mark-api.vercel.app/users/create`, {
-                    await axios.put(`http://192.168.1.72:5000/users/create`, {
+                    await axios.post(`https://mark-api.vercel.app/users/create`, {
+                    //await axios.put(`http://192.168.1.72:5000/users/create`, {
                         nom,
                         prenom,
                         mail,

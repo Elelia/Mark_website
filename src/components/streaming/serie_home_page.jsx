@@ -20,12 +20,12 @@ export default function SerieHome() {
         //récupère les catégories des séries ainsi que les séries de la base de données
         const fetchDataSerie = async () => {
             try {
-                //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.72:5000/seriefilm/serie/categories');
+                const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
+                //const categoriesResponse = await axios.get('http://192.168.1.72:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesResponse.data);
 
-                //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie');
-                const videosResponse = await axios.get('http://192.168.1.72:5000/seriefilm/serie');
+                const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie');
+                //const videosResponse = await axios.get('http://192.168.1.72:5000/seriefilm/serie');
                 setVideosSerie(videosResponse.data);
             } catch (error) {
                 console.log(error);
@@ -35,8 +35,8 @@ export default function SerieHome() {
         //récupère une sélection de 20 séries selon les préférences de l'utilisateur
         const fetchPreference = async () => {
             try {
-                //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
-                const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
+                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                //const preferenceResponse = await axios.get('http://192.168.1.72:5000/seriefilm/film/bypref');
                 setPreferenceFilms(preferenceResponse.data);
             } catch (error) {
                 console.log(error);

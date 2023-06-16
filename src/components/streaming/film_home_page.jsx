@@ -73,17 +73,17 @@ export default function FilmHome() {
                     <h1>Notre sélection pour vous</h1>
                     <br/>
                     <VideoSliderPref data={preferenceFilms}/>
-                    <h1>Les plus populaires</h1>
-                    <br/>
-                    <VideoSliderPref data={filmsVus}/>
-                    <h1>Les nouveautés</h1>
-                    <br/>
-                    <VideoSliderPref data={filmsLast}/>
                 </div>
             }
+            <h1>Les plus populaires</h1>
+            <br/>
+            <VideoSliderPref data={filmsVus}/>
+            <h1>Les nouveautés</h1>
+            <br/>
+            <VideoSliderPref data={filmsLast}/>
             <h1>Les films</h1>
             <br/>
             <VideoSlider videos={videosFilm} categories={categoriesFilm}/>
         </div>
-    )
+    );
 }

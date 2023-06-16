@@ -49,10 +49,10 @@ export default function ModificationPage() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesFResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                const categoriesFResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
                 setCategFilm(categoriesFResponse.data);
 
-                const categoriesSResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                const categoriesSResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
                 setCategSerie(categoriesSResponse.data);
             } catch (error) {
                 console.log(error);
@@ -66,8 +66,7 @@ export default function ModificationPage() {
         event.preventDefault();
         try {
             //filter avec le nom aussi
-            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
-            console.log(filmsCategories.data);
+            const filmsCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/film/id_categorie/${selectedCategFilm}`);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
             console.log(err);
@@ -77,10 +76,8 @@ export default function ModificationPage() {
 
     const searchSerie = async (event) => {
         event.preventDefault();
-        console.log(selectedCategSerie);
         try {
-            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
-            console.log(seriesCategories.data);
+            const seriesCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
             setSearchSeries(seriesCategories.data);
         } catch (err) {
             console.log(err);
@@ -99,7 +96,7 @@ export default function ModificationPage() {
                 let vignette = rows[i].url_vignette;
                 let affiche = rows[i].url_affiche;
                 let trailer = rows[i].trailer;
-                await axios.put(`http://192.168.1.73:5000/seriefilm/film/update`, {
+                await axios.put(`https://mark-api.vercel.app/seriefilm/film/update`, {
                     id_movie,
                     nom,
                     age_min,
@@ -118,12 +115,12 @@ export default function ModificationPage() {
 
     const validateSerie = async (rows) => {
         console.log(rows);
-        /*try {
+        try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_serie = rows[i].original.id;
-                await axios.post(`http://192.168.1.73:5000/seriefilm/serie/insertSerie`, {
+                await axios.post(`https://mark-api.vercel.app/seriefilm/serie/insertSerie`, {
                     id_serie
                 });
             }
@@ -131,17 +128,17 @@ export default function ModificationPage() {
         } catch(err) {
             console.log(err);
             alert("L'enregistrement n'a pas pu être effectué.");
-        }*/
+        }
     };
 
     const deleteMovie = async (rows) => {
         console.log(rows);
-        /*try {
+        try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_movie = rows[i].original.id;
-                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
                     id_movie
                 });
             }
@@ -149,17 +146,17 @@ export default function ModificationPage() {
         } catch(err) {
             console.log(err);
             alert("L'enregistrement n'a pas pu être effectué.");
-        }*/
+        }
     };
 
     const deleteSerie = async (rows) => {
         console.log(rows);
-        /*try {
+        try {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_movie = rows[i].original.id;
-                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
                     id_movie
                 });
             }
@@ -167,7 +164,7 @@ export default function ModificationPage() {
         } catch(err) {
             console.log(err);
             alert("L'enregistrement n'a pas pu être effectué.");
-        }*/
+        }
     };
 
     const goBack = () => {
