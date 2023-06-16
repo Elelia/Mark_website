@@ -46,7 +46,7 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
     };*/
 
     const getSaison = async () => {
-        await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`https://mark-api.vercel.app/seriefilm/serie/saison/${seriefilmId}` )
         //await axios.get(`http://192.168.1.72:5000/seriefilm/serie/saison/${seriefilmId}`)
             .then(function (response) {
                 setSaison(response.data);
