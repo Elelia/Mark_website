@@ -20,8 +20,8 @@ export default function ResumePageFilm({isOpen, closeModal, video}) {
     const videoId = video.id_video;
 
     const getAvis = async () => {
-        await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
-        //await axios.get(`http://192.168.1.72:5000/seriefilm/avis/${seriefilmId}`)
+        //await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`http://192.168.1.73:5000/seriefilm/avis/${seriefilmId}`)
             .then(function (response) {
                 setAvis(response.data);
             })
@@ -31,8 +31,8 @@ export default function ResumePageFilm({isOpen, closeModal, video}) {
     };
 
     const getUrlVideo = async () => {
-        await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
-        //await axios.get(`http://192.168.1.72:5000/seriefilm/video/url/${videoId}`)
+        //await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
+        await axios.get(`http://192.168.1.73:5000/seriefilm/video/url/${videoId}`)
             .then(function (response) {
                 setUrl(response.data[0].url);
             })
@@ -53,8 +53,8 @@ export default function ResumePageFilm({isOpen, closeModal, video}) {
         e.preventDefault();
         const date = new Date().toLocaleString();
         try {
-            await axios.post('https://mark-api.vercel.app/seriefilm/avis/insert', {
-            //await axios.post('http://192.168.1.72:5000/seriefilm/avis/insert', {
+            //await axios.post('https://mark-api.vercel.app/seriefilm/avis/insert', {
+            await axios.post('http://192.168.1.73:5000/seriefilm/avis/insert', {
                 seriefilmId,
                 comment,
                 note,
@@ -73,7 +73,8 @@ export default function ResumePageFilm({isOpen, closeModal, video}) {
         try {
             setVideoModalIsOpen(true);
             const id_episode = null;
-            await axios.post('https://mark-api.vercel.app/seriefilm/film/saw', {
+            await axios.post('http://192.168.1.73:5000/seriefilm/saw', {
+            //await axios.post('https://mark-api.vercel.app/seriefilm/saw', {
                 id_film,
                 id_episode
             })

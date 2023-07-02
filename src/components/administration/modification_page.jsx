@@ -49,10 +49,12 @@ export default function ModificationPage() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesFResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
+                const categoriesFResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                //const categoriesFResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
                 setCategFilm(categoriesFResponse.data);
 
-                const categoriesSResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
+                const categoriesSResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                //const categoriesSResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
                 setCategSerie(categoriesSResponse.data);
             } catch (error) {
                 console.log(error);
@@ -66,7 +68,8 @@ export default function ModificationPage() {
         event.preventDefault();
         try {
             //filter avec le nom aussi
-            const filmsCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/film/id_categorie/${selectedCategFilm}`);
+            const filmsCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/film/id_categorie/${selectedCategFilm}`);
+            //const filmsCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/film/id_categorie/${selectedCategFilm}`);
             setSearchFilms(filmsCategories.data);
         } catch (err) {
             console.log(err);
@@ -77,7 +80,8 @@ export default function ModificationPage() {
     const searchSerie = async (event) => {
         event.preventDefault();
         try {
-            const seriesCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
+            const seriesCategories = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
+            //const seriesCategories = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/get_tmdb/${selectedCategSerie}`);
             setSearchSeries(seriesCategories.data);
         } catch (err) {
             console.log(err);
@@ -96,7 +100,8 @@ export default function ModificationPage() {
                 let vignette = rows[i].url_vignette;
                 let affiche = rows[i].url_affiche;
                 let trailer = rows[i].trailer;
-                await axios.put(`https://mark-api.vercel.app/seriefilm/film/update`, {
+                await axios.put(`http://192.168.1.73:5000/seriefilm/film/update`, {
+                //await axios.put(`https://mark-api.vercel.app/seriefilm/film/update`, {
                     id_movie,
                     nom,
                     age_min,
@@ -120,7 +125,8 @@ export default function ModificationPage() {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_serie = rows[i].original.id;
-                await axios.post(`https://mark-api.vercel.app/seriefilm/serie/insertSerie`, {
+                await axios.post(`http://192.168.1.73:5000/seriefilm/serie/insertSerie`, {
+                //await axios.post(`https://mark-api.vercel.app/seriefilm/serie/insertSerie`, {
                     id_serie
                 });
             }
@@ -138,7 +144,8 @@ export default function ModificationPage() {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_movie = rows[i].original.id;
-                await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                //await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
                     id_movie
                 });
             }
@@ -156,7 +163,8 @@ export default function ModificationPage() {
                 //insérer les valeurs en base
                 console.log(rows[i].original.id);
                 let id_movie = rows[i].original.id;
-                await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
+                await axios.post(`http://192.168.1.73:5000/seriefilm/film/insertMovie`, {
+                //await axios.post(`https://mark-api.vercel.app/seriefilm/film/insertMovie`, {
                     id_movie
                 });
             }

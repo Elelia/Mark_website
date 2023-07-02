@@ -17,7 +17,8 @@ export default function Contact() {
         try {
             console.log(mail);
             console.log(message);
-            await axios.post(`https://mark-api.vercel.app/users/contact`, {
+            await axios.post(`http://192.168.1.73:5000/users/contact`, {
+            //await axios.post(`https://mark-api.vercel.app/users/contact`, {
                 mail,
                 message
             });

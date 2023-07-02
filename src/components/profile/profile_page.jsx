@@ -39,7 +39,8 @@ export default function Profile() {
                 const nom = thisUser.nom;
                 const prenom = thisUser.prenom;
                 const mail = thisUser.mail;
-                await axios.put('https://mark-api.vercel.app/users/updateUser', {
+                await axios.put('http://192.168.1.73:5000/users/updateUser', {
+                //await axios.put('https://mark-api.vercel.app/users/updateUser', {
                     nom,
                     prenom,
                     mail,
@@ -57,8 +58,8 @@ export default function Profile() {
     useEffect(()  => {
         const getInfoUser = async () => {
             try {
-                const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
-                //const res = await axios.get(`http://192.168.1.72:5000/users/user/`);
+                //const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
+                const res = await axios.get(`http://192.168.1.73:5000/users/user/`);
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
