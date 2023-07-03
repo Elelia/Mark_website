@@ -18,12 +18,12 @@ export default function FilmHome() {
     useEffect(() => {
         const fetchDataFilm = async () => {
             try {
-                //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
+                //const categoriesResponse = await axios.get('http://localhost:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesResponse.data);
 
-                //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film');
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film');
+                const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film');
+                //const videosResponse = await axios.get('http://localhost:5000/seriefilm/film');
                 setVideosFilm(videosResponse.data);
             } catch (error) {
                 console.log(error);
@@ -32,8 +32,8 @@ export default function FilmHome() {
 
         const fetchPreference = async () => {
             try {
-                //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
-                const preferenceResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/bypref');
+                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/bypref');
+                //const preferenceResponse = await axios.get('http://localhost:5000/seriefilm/film/bypref');
                 setPreferenceFilms(preferenceResponse.data);
             } catch (error) {
                 console.log(error);
@@ -42,8 +42,8 @@ export default function FilmHome() {
 
         const fetchMostSeen = async () => {
             try {
-                //const mostSeenResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/most_seen');
-                const mostSeenResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/most_seen');
+                const mostSeenResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/most_seen');
+                //const mostSeenResponse = await axios.get('http://localhost:5000/seriefilm/film/most_seen');
                 setFilmsVus(mostSeenResponse.data);
             } catch (error) {
                 console.log(error);
@@ -52,8 +52,8 @@ export default function FilmHome() {
 
         const fetchLastMovie = async () => {
             try {
-                //const lastMovieResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/last');
-                const lastMovieResponse = await axios.get('http://192.168.1.73:5000/seriefilm/film/last');
+                const lastMovieResponse = await axios.get('https://mark-api.vercel.app/seriefilm/film/last');
+                //const lastMovieResponse = await axios.get('http://localhost:5000/seriefilm/film/last');
                 setFilmsLast(lastMovieResponse.data);
             } catch (error) {
                 console.log(error);

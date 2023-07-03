@@ -41,8 +41,8 @@ export default function Administration() {
     useEffect(() => {
         const getMovieCategorieMostSeen = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/seriefilm//film/mostSeenCat`);
-                const res = await axios.get(`http://192.168.1.73:5000/seriefilm//film/mostSeenCat`);
+                const res = await axios.get(`https://mark-api.vercel.app/seriefilm/film/mostSeenCat`);
+                //const res = await axios.get(`http://localhost:5000/seriefilm/film/mostSeenCat`);
                 const categories = res.data.map(item => item.cat_nom);
                 const counts = res.data.map(item => parseInt(item.count, 10));
                 setMovieCat({
@@ -57,8 +57,8 @@ export default function Administration() {
 
         const getSerieCategorieMostSeen = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/mostSeenCat`);
-                const res = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/mostSeenCat`);
+                const res = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/mostSeenCat`);
+                //const res = await axios.get(`http://localhost:5000/seriefilm/serie/mostSeenCat`);
                 const categories = res.data.map(item => item.cat_nom);
                 const counts = res.data.map(item => parseInt(item.count, 10));
                 setSerieCat({
@@ -73,8 +73,8 @@ export default function Administration() {
 
         const getSeriefilmSeenMonth = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/seriefilm/countbymonth`);
-                const res = await axios.get(`http://192.168.1.73:5000/seriefilm/countbymonth`);
+                const res = await axios.get(`https://mark-api.vercel.app/seriefilm/countbymonth`);
+                //const res = await axios.get(`http://localhost:5000/seriefilm/countbymonth`);
                 const month = res.data.map(item => item.mois);
                 const counts = res.data.map(item => parseInt(item.count, 10));
                 setSeriefilmMonth({
@@ -89,8 +89,8 @@ export default function Administration() {
 
         const getfilmSeenMonth = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/seriefilm/film/countbymonth`);
-                const res = await axios.get(`http://192.168.1.73:5000/seriefilm/film/countbymonth`);
+                const res = await axios.get(`https://mark-api.vercel.app/seriefilm/film/countbymonth`);
+                //const res = await axios.get(`http://localhost:5000/seriefilm/film/countbymonth`);
                 const month = res.data.map(item => item.mois);
                 const counts = res.data.map(item => parseInt(item.count, 10));
                 setFilmMonth({
@@ -105,8 +105,8 @@ export default function Administration() {
 
         const getserieSeenMonth = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/countbymonth`);
-                const res = await axios.get(`http://192.168.1.73:5000/seriefilm/serie/countbymonth`);
+                const res = await axios.get(`https://mark-api.vercel.app/seriefilm/serie/countbymonth`);
+                //const res = await axios.get(`http://localhost:5000/seriefilm/serie/countbymonth`);
                 const month = res.data.map(item => item.mois);
                 const counts = res.data.map(item => parseInt(item.count, 10));
                 setSerieMonth({

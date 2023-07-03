@@ -21,12 +21,12 @@ export default function SerieHome() {
         //récupère les catégories des séries ainsi que les séries de la base de données
         const fetchDataSerie = async () => {
             try {
-                //const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
-                const categoriesResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                const categoriesResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
+                //const categoriesResponse = await axios.get('http://localhost:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesResponse.data);
 
-                //const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie');
-                const videosResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie');
+                const videosResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie');
+                //const videosResponse = await axios.get('http://localhost:5000/seriefilm/serie');
                 setVideosSerie(videosResponse.data);
             } catch (error) {
                 console.log(error);
@@ -36,8 +36,8 @@ export default function SerieHome() {
         //récupère une sélection de 20 séries selon les préférences de l'utilisateur
         const fetchPreference = async () => {
             try {
-                //const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/bypref');
-                const preferenceResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/bypref');
+                const preferenceResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/bypref');
+                //const preferenceResponse = await axios.get('http://localhost:5000/seriefilm/serie/bypref');
                 setPreferenceSeries(preferenceResponse.data);
             } catch (error) {
                 console.log(error);
@@ -46,8 +46,8 @@ export default function SerieHome() {
 
         const fetchMostSeen = async () => {
             try {
-                //const mostSeenResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/most_seen');
-                const mostSeenResponse = await axios.get('http://192.168.1.73:5000/seriefilm/serie/most_seen');
+                const mostSeenResponse = await axios.get('https://mark-api.vercel.app/seriefilm/serie/most_seen');
+                //const mostSeenResponse = await axios.get('http://localhost:5000/seriefilm/serie/most_seen');
                 setSeriesVus(mostSeenResponse.data);
             } catch (error) {
                 console.log(error);

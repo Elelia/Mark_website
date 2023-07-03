@@ -30,12 +30,12 @@ export default function Preference() {
 
         const getCategories = async () => {
             try {
-                //const categoriesFilms = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
-                const categoriesFilms = await axios.get('http://192.168.1.73:5000/seriefilm/film/categories');
+                const categoriesFilms = await axios.get('https://mark-api.vercel.app/seriefilm/film/categories');
+                //const categoriesFilms = await axios.get('http://localhost:5000/seriefilm/film/categories');
                 setCategoriesFilm(categoriesFilms.data);
 
-                //const categoriesSeries = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
-                const categoriesSeries = await axios.get('http://192.168.1.73:5000/seriefilm/serie/categories');
+                const categoriesSeries = await axios.get('https://mark-api.vercel.app/seriefilm/serie/categories');
+                //const categoriesSeries = await axios.get('http://localhost:5000/seriefilm/serie/categories');
                 setCategoriesSerie(categoriesSeries.data);
             } catch (error) {
                 console.log(error);
@@ -44,8 +44,8 @@ export default function Preference() {
 
         const getInfoUser = async () => {
             try {
-                //const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
-                const res = await axios.get(`http://192.168.1.73:5000/users/user/`);
+                const res = await axios.get(`https://mark-api.vercel.app/users/user/`);
+                //const res = await axios.get(`http://localhost:5000/users/user/`);
                 setThisUser(res.data);
             } catch (err) {
                 console.log(err);
@@ -63,8 +63,8 @@ export default function Preference() {
             for(let i=0; rows.length > i; i++) {
                 //insérer les valeurs en base
                 let id_categorie = rows[i].original.id;
-                await axios.post(`http://192.168.1.73:5000/users/prefcat`, {
-                //await axios.post(`https://mark-api.vercel.app/users/prefcat`, {
+                //await axios.post(`http://localhost:5000/users/prefcat`, {
+                await axios.post(`https://mark-api.vercel.app/users/prefcat`, {
                     id_compte,
                     id_categorie
                 });
