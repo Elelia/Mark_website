@@ -2,9 +2,9 @@ import React from 'react';
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-export default function GraphComponent({categories, data}) {
+export default function GraphComponent({thelabel, data}) {
     const load = {
-        labels: categories,
+        labels: thelabel,
         datasets: [
             {
                 label: 'Nombre de vues',
