@@ -1,0 +1,9 @@
+.scrollable-div {
+    height: 200px;
+    overflow: scroll;
+}
+
+.affiche {
+    width: 340px;
+    height: 580px;
+}
