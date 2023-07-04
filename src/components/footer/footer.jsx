@@ -9,6 +9,7 @@ import {
     Heading,
 } from "./footer_style";
 import { BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Footer(){
     return (
@@ -17,12 +18,12 @@ export default function Footer(){
                 <Row>
                     <Column>
                         <Heading>A propos</Heading>
-                        <FooterLink href="#">Qu'est-ce que Mark ?</FooterLink>
+                        <FooterLink as={Link} to="/about">Qu'est-ce que Mark ?</FooterLink>
                         <FooterLink href="#">Les créateurs</FooterLink>
                     </Column>
                     <Column>
                         <Heading>Sécurité</Heading>
-                        <FooterLink href="#">L'utilisation de vos données</FooterLink>
+                        <FooterLink as={Link} to="/data_use">L'utilisation de vos données</FooterLink>
                     </Column>
                     <Column>
                         <Heading>Nos coordonnées</Heading>

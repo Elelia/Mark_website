@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
-export default function AboutMark() {
+export default function DataUse() {
 
     return(
         <Container>
@@ -10,7 +10,9 @@ export default function AboutMark() {
                 <Col xs={12} sm={8} md={8} lg={8}>
                     <Card>
                         <Card.Body>
-                            <p>Mark est un projet réalisé dans le cadre de notre formation en Bachelor Développement et Innovation.</p>
+                            <p>Les données collectées dans notre base de données sont uniquement constituées de vos noms, prénoms et adresse mail.
+                            A tout moment, vous pouvez nous contacter si vous souhaitez supprimer vos données, conformément à la réglementation générale sur la protection des données.
+                            </p>
                         </Card.Body>
                     </Card>
                 </Col>
