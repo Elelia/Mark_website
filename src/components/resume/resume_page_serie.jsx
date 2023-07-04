@@ -1,12 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Modal from 'react-modal';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";
 import './resume_page.css';
-import {Accordion} from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Accordion } from 'react-bootstrap';
 import AccordionItem from "react-bootstrap/AccordionItem";
 import TableSerieFilm from "../administration/table_add_seriefilm";
 
@@ -144,17 +142,19 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                         <span onClick={closeModal}><BsX size={32}/></span>
                     </div>
                 </div>
-                <div className="row">
+                <Col className="row">
                     <div className="col-4">
                         <img className="affiche" src={video.url_affiche}/>
                     </div>
-                    <div className="col-4">
+                    <Col sm={2} md={4} lg={4}>
                         <h2>{video.nom}</h2>
                         <p>Synopsis : <br/>{video.resume}</p>
                         <Accordion>
                             {saison.map(saison => (
-                                <AccordionItem eventKey={saison.id} onClick={(event) => getEpisode(event, saison.id)}>
-                                    <Accordion.Header>{saison.nom} - {new Date(saison.date_sortie).toLocaleDateString('fr-FR')}</Accordion.Header>
+                                <AccordionItem eventKey={saison.id} onClick={(event) =>
+                                    getEpisode(event, saison.id)}>
+                                    <Accordion.Header>{saison.nom} -
+                                        {new Date(saison.date_sortie).toLocaleDateString('fr-FR')}</Accordion.Header>
                                     {episode.map(ep => (
                                         <Accordion.Body>
                                             <h5>{ep.nom}</h5>
@@ -167,7 +167,7 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                                 </AccordionItem>
                             ))}
                         </Accordion>
-                    </div>
+                    </Col>
                     <div className="col-4">
                         <div>
                             {avis.length > 0 ? (
