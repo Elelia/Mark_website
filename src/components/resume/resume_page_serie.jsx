@@ -4,7 +4,7 @@ import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";
 import './resume_page.css';
-import { Container, Row, Col, Card, Button, Accordion } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Accordion, Form } from 'react-bootstrap';
 import AccordionItem from "react-bootstrap/AccordionItem";
 import TableSerieFilm from "../administration/table_add_seriefilm";
 
