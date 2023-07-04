@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.card {
+  margin-top: 10%;
+  padding: 1.5em .5em .5em;
+  border-radius: 5% !important;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}

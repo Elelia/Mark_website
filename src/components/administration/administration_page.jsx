@@ -148,7 +148,7 @@ export default function Administration() {
             <Row>
                 <Col sm={2} md={2} lg={2}></Col>
                 <Col sm={2} md={8} lg={8}>
-                    <Card>
+                    <Card className="card-admin">
                         <Card.Body>
                             <h2 className="title">Statistiques du site</h2>
                             <h3>Graphique des catégories des films</h3>

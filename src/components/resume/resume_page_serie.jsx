@@ -1,14 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Modal from 'react-modal';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { BsFillPlayCircleFill, BsX } from "react-icons/bs";
 import ReactPlayer from 'react-player';
 import axios from "axios";
 import './resume_page.css';
-import {Accordion} from "react-bootstrap";
+import { Container, Row, Col, Button, Accordion, Form } from 'react-bootstrap';
 import AccordionItem from "react-bootstrap/AccordionItem";
-import TableSerieFilm from "../administration/table_add_seriefilm";
 
 export default function ResumePageVideo({isOpen, closeModal, video}) {
     const [avis, setAvis] = useState([]);
@@ -16,12 +13,11 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
     const [videoModalIsOpen, setVideoModalIsOpen] = useState(false);
     const [comment, setComment] = useState('');
     const [note, setNote] = useState('');
-    const [formattedDate, setFormattedDate] = useState('');
     const [saison, setSaison] = useState([]);
     const [episode, setEpisode] = useState([]);
     const seriefilmId = video.id;
-    const id_film = video.id_film;
-    const videoId = video.id_video;
+    //const id_film = video.id_film;
+    //const videoId = video.id_video;
 
     const getAvis = async () => {
         await axios.get(`https://mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
@@ -33,17 +29,6 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                 console.log(error);
             });
     };
-
-    /*const getUrlVideo = async () => {
-        //await axios.get(`https:///mark-api.vercel.app/seriefilm/avis/${seriefilmId}` )
-        await axios.get(`http://192.168.1.72:5000/seriefilm/video/url/${videoId}`)
-            .then(function (response) {
-                setUrl(response.data[0].url);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };*/
 
     const getSaison = async () => {
         await axios.get(`https://mark-api.vercel.app/seriefilm/serie/saison/${seriefilmId}` )
@@ -57,11 +42,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
     };
 
     useEffect(() => {
-        /*const date = new Date(video.date_sortie);
-        setFormattedDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);*/
 
         getAvis();
-        //getUrlVideo();
         getSaison();
     }, []);
 
@@ -137,18 +119,18 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                 },
             }}
         >
-            <div className="container">
-                <div className="row">
-                    <div className="col-11"></div>
-                    <div className="col-1">
+            <Container>
+                <Row>
+                    <Col xs={12} sm={8} md={8} lg={11} xl={11}></Col>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <span onClick={closeModal}><BsX size={32}/></span>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-4">
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={8} sm={6} md={7} lg={6} xl={4}>
                         <img className="affiche" src={video.url_affiche}/>
-                    </div>
-                    <div className="col-4">
+                    </Col>
+                    <Col xs={8} sm={8} md={5} lg={4} xl={4}>
                         <h2>{video.nom}</h2>
                         <p>Synopsis : <br/>{video.resume}</p>
                         <Accordion>
@@ -167,8 +149,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                                 </AccordionItem>
                             ))}
                         </Accordion>
-                    </div>
-                    <div className="col-4">
+                    </Col>
+                    <Col xs={8} sm={8} md={4} lg={4} xl={4}>
                         <div>
                             {avis.length > 0 ? (
                                 avis.map(avis => (
@@ -215,9 +197,9 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                                 Valider votre avis
                             </Button>
                         </Form>
-                    </div>
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Container>
             <Modal
                 isOpen={videoModalIsOpen}
                 onRequestClose={() => setVideoModalIsOpen(false)}

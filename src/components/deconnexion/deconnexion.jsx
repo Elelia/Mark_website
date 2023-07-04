@@ -26,7 +26,6 @@ export default function Deconnexion() {
     }, []);
 
     useEffect(() => {
-        console.log(user);
         if (user.user.userId === '' && user.user.isAdmin === '') {
             navigate('/');
         }

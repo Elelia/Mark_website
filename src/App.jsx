@@ -14,6 +14,8 @@ import Preference from "./components/profile/preference_page";
 import {UserProvider} from "./components/utils/userContext";
 import PrivateRoutes from "./components/utils/PrivateRoutes";
 import Footer from "./components/footer/footer";
+import AboutMark from "./components/about/about_mark";
+import DataUse from "./components/about/data_use";
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
                           <Route path="/preference" element={<Preference/>} />
                       </Route>
                       <Route path="/deconnexion" element={<Deconnexion/>} />
+                      <Route path="/about" element={<AboutMark/>} />
+                      <Route path="/data_use" element={<DataUse/>} />
                   </Routes>
                   <Footer/>
               </BrowserRouter>
