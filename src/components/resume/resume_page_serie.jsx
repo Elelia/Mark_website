@@ -142,7 +142,7 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                         <span onClick={closeModal}><BsX size={32}/></span>
                     </div>
                 </div>
-                <Col className="row">
+                <div className="row">
                     <div className="col-4">
                         <img className="affiche" src={video.url_affiche}/>
                     </div>
@@ -151,10 +151,8 @@ export default function ResumePageVideo({isOpen, closeModal, video}) {
                         <p>Synopsis : <br/>{video.resume}</p>
                         <Accordion>
                             {saison.map(saison => (
-                                <AccordionItem eventKey={saison.id} onClick={(event) =>
-                                    getEpisode(event, saison.id)}>
-                                    <Accordion.Header>{saison.nom} -
-                                        {new Date(saison.date_sortie).toLocaleDateString('fr-FR')}</Accordion.Header>
+                                <AccordionItem eventKey={saison.id} onClick={(event) => getEpisode(event, saison.id)}>
+                                    <Accordion.Header>{saison.nom} - {new Date(saison.date_sortie).toLocaleDateString('fr-FR')}</Accordion.Header>
                                     {episode.map(ep => (
                                         <Accordion.Body>
                                             <h5>{ep.nom}</h5>
