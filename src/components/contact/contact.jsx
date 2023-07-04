@@ -2,12 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './contact.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 
 export default function Contact() {
     const [mail, setMail] = useState("");
