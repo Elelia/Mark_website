@@ -14,6 +14,7 @@ code {
 }
 
 .card {
+  margin-top: 10%;
   padding: 1.5em .5em .5em;
   border-radius: 5%;
   text-align: center;
